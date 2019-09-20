@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la fiche d'un salarié{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-user-edit fa-2x"></i> Modification de la fiche d'un salarié</div>
+            <div class="card-body">
+                {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

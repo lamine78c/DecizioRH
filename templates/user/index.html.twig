@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Salariés{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <section class="card card-primary">
+        <div class="card-header">
+            <div>
+                <a class="btn btn-primary float-right" href="{{ path('app_register') }}">Ajouter un nouveau salarié</a>
+            </div>
+            <div class="card-header">
+                <div class="d-flex justify-content-between">Liste des Salariés</div>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Matricule</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.matricule }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-eye"></i></a>
+                        <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a>
+                        {{ include('user/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}
