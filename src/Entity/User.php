@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -21,14 +23,25 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=26)
      */
-    private $nom;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=16)
      */
-    private $prenom;
+    private $lastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", columnDefinition="enum('masculin', 'eminin')")
+     */
+    private $gender;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -36,9 +49,24 @@ class User implements UserInterface
     private $matricule;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=100, nullable=false)
+     *
+     */
+    private $address;
 
     /**
      * @ORM\Column(type="json")
@@ -52,42 +80,78 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var \Datetime
+     *
+     * @ORM\Column(name="birthdate", type="datetime", nullable=true)
      */
-    private $dateNaissance;
+    private $birthDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var MainFunction
+     *
+     * @ORM\ManyToOne(targetEntity="MainFunction")
+     * @ORM\JoinColumn(name="mainfunction_id", referencedColumnName="id")
+     */
+    private $mainFunction;
+
+    /**
+     * @var Entity
+     *
+     * @ORM\ManyToOne(targetEntity="Entity", inversedBy="users")
+     * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", nullable=false)
+     */
+    private $entity;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Vacation", mappedBy="user")
+     */
+    private $vacations;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="VacationRequest", mappedBy="user")
+     */
+    private $vacationRequests;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Contract", mappedBy="user")
+     */
+    private $contracts;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
+
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
+        $this->contracts = new ArrayCollection();
+        $this->vacations = new ArrayCollection();
+        $this->vacationRequests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getMatricule(): ?string
@@ -187,6 +251,78 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -199,11 +335,132 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue()
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        $this->createdAt = new \DateTime();
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getMainFunction(): ?MainFunction
+    {
+        return $this->mainFunction;
+    }
+
+    public function setMainFunction(?MainFunction $mainFunction): self
+    {
+        $this->mainFunction = $mainFunction;
+
+        return $this;
+    }
+
+    public function getEntity(): ?Entity
+    {
+        return $this->entity;
+    }
+
+    public function setEntity(?Entity $entity): self
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vacation[]
+     */
+    public function getVacations(): Collection
+    {
+        return $this->vacations;
+    }
+
+    public function addVacation(Vacation $vacation): self
+    {
+        if (!$this->vacations->contains($vacation)) {
+            $this->vacations[] = $vacation;
+            $vacation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVacation(Vacation $vacation): self
+    {
+        if ($this->vacations->contains($vacation)) {
+            $this->vacations->removeElement($vacation);
+            // set the owning side to null (unless already changed)
+            if ($vacation->getUser() === $this) {
+                $vacation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VacationRequest[]
+     */
+    public function getVacationRequests(): Collection
+    {
+        return $this->vacationRequests;
+    }
+
+    public function addVacationRequest(VacationRequest $vacationRequest): self
+    {
+        if (!$this->vacationRequests->contains($vacationRequest)) {
+            $this->vacationRequests[] = $vacationRequest;
+            $vacationRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVacationRequest(VacationRequest $vacationRequest): self
+    {
+        if ($this->vacationRequests->contains($vacationRequest)) {
+            $this->vacationRequests->removeElement($vacationRequest);
+            // set the owning side to null (unless already changed)
+            if ($vacationRequest->getUser() === $this) {
+                $vacationRequest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contract[]
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContract(Contract $contract): self
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts[] = $contract;
+            $contract->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contract $contract): self
+    {
+        if ($this->contracts->contains($contract)) {
+            $this->contracts->removeElement($contract);
+            // set the owning side to null (unless already changed)
+            if ($contract->getUser() === $this) {
+                $contract->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
