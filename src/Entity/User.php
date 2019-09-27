@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -57,9 +59,67 @@ class User implements UserInterface
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var MainFunction
+     *
+     * @ORM\ManyToOne(targetEntity="MainFunction")
+     * @ORM\JoinColumn(name="mainfunction_id", referencedColumnName="id")
+     */
+    private $mainFunction;
+
+    /**
+     * @var Entity
+     *
+     * @ORM\ManyToOne(targetEntity="Entity", inversedBy="users")
+     * @ORM\JoinColumn(name="entity_id", referencedColumnName="id", nullable=false)
+     */
+    private $entity;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Vacation", mappedBy="user")
+     */
+    private $vacations;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="VacationRequest", mappedBy="user")
+     */
+    private $vacationRequests;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Contract", mappedBy="user")
+     */
+    private $contracts;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
+
+        /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
+        $this->contracts = new ArrayCollection();
+        $this->vacations = new ArrayCollection();
+        $this->vacationRequests = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -205,5 +265,134 @@ class User implements UserInterface
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getMainFunction(): ?MainFunction
+    {
+        return $this->mainFunction;
+    }
+
+    public function setMainFunction(?MainFunction $mainFunction): self
+    {
+        $this->mainFunction = $mainFunction;
+
+        return $this;
+    }
+
+    public function getEntity(): ?Entity
+    {
+        return $this->entity;
+    }
+
+    public function setEntity(?Entity $entity): self
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vacation[]
+     */
+    public function getVacations(): Collection
+    {
+        return $this->vacations;
+    }
+
+    public function addVacation(Vacation $vacation): self
+    {
+        if (!$this->vacations->contains($vacation)) {
+            $this->vacations[] = $vacation;
+            $vacation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVacation(Vacation $vacation): self
+    {
+        if ($this->vacations->contains($vacation)) {
+            $this->vacations->removeElement($vacation);
+            // set the owning side to null (unless already changed)
+            if ($vacation->getUser() === $this) {
+                $vacation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VacationRequest[]
+     */
+    public function getVacationRequests(): Collection
+    {
+        return $this->vacationRequests;
+    }
+
+    public function addVacationRequest(VacationRequest $vacationRequest): self
+    {
+        if (!$this->vacationRequests->contains($vacationRequest)) {
+            $this->vacationRequests[] = $vacationRequest;
+            $vacationRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVacationRequest(VacationRequest $vacationRequest): self
+    {
+        if ($this->vacationRequests->contains($vacationRequest)) {
+            $this->vacationRequests->removeElement($vacationRequest);
+            // set the owning side to null (unless already changed)
+            if ($vacationRequest->getUser() === $this) {
+                $vacationRequest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contract[]
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContract(Contract $contract): self
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts[] = $contract;
+            $contract->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contract $contract): self
+    {
+        if ($this->contracts->contains($contract)) {
+            $this->contracts->removeElement($contract);
+            // set the owning side to null (unless already changed)
+            if ($contract->getUser() === $this) {
+                $contract->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
