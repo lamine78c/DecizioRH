@@ -23,14 +23,25 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=26)
      */
-    private $nom;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=16)
      */
-    private $prenom;
+    private $lastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", columnDefinition="enum('masculin', 'eminin')")
+     */
+    private $gender;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -38,9 +49,24 @@ class User implements UserInterface
     private $matricule;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=100, nullable=false)
+     *
+     */
+    private $address;
 
     /**
      * @ORM\Column(type="json")
@@ -54,9 +80,11 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var \Datetime
+     *
+     * @ORM\Column(name="birthdate", type="datetime", nullable=true)
      */
-    private $dateNaissance;
+    private $birthDate;
 
     /**
      * @var MainFunction
@@ -124,30 +152,6 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getMatricule(): ?string
@@ -247,6 +251,78 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -257,14 +333,6 @@ class User implements UserInterface
         $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue()
-    {
-        $this->createdAt = new \DateTime();
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
