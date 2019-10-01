@@ -11,13 +11,13 @@ class RequestStatusFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        
+
         $statusList = ['En cours', 'Validée', 'Rejetée'];
-        
+
         foreach ($statusList as $value) {
             $status = new RequestStatus();
             $status->setName($value);
-            
+
             $manager->persist($status);
 
             $manager->flush();
