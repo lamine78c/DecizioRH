@@ -13,6 +13,14 @@ class MainFunctionFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
+        // Une fonction par défaut
+        $mainFunction = new MainFunction();
+        $mainFunction->setName('Autre fonction');
+
+        $manager->persist($mainFunction);
+        $manager->flush();
+
+        $this->addReference('mainFunction_default', $mainFunction);
 
         $list = [
             'Ministre',
@@ -22,7 +30,6 @@ class MainFunctionFixtures extends Fixture
             'Conseiller Juridique',
             'Directeur National',
             'Directeur National Adjoint',
-            'Aiutre fonction'
         ];
 
         foreach ($list as $key => $value) {

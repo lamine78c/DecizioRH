@@ -4,10 +4,13 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 use App\Entity\Address;
+use App\DataFixtures\MunicipalityFixtures;
+use App\DataFixtures\UserFixtures;
 
-class AddressFixtures extends Fixture
+class AddressFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public function load(ObjectManager $manager)
@@ -38,5 +41,13 @@ class AddressFixtures extends Fixture
 
             $this->addReference('address_' . $key, $address);
         }
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            MunicipalityFixtures::class,
+            UserFixtures::class,
+        );
     }
 }

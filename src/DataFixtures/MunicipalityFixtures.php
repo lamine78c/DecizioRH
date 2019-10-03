@@ -14,6 +14,14 @@ class MunicipalityFixtures extends Fixture
     {
 
 
+        $municipality = new Municipality();
+        $municipality->setName('Kankan');
+
+        $manager->persist($municipality);
+        $manager->flush();
+
+        $this->addReference('municipality_default', $municipality);
+
         $list = [
             'Matam',
             'Kaloum',
@@ -34,7 +42,8 @@ class MunicipalityFixtures extends Fixture
             $manager->persist($municipality);
             $manager->flush();
 
-            $this->addReference('municipality' . $key, $municipality);
+            $this->addReference('municipality_' . $key, $municipality);
         }
     }
+
 }

@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-//use App\Entity\VacationType;
+use App\Entity\VacationType;
 
 class VacationTypeFixtures extends Fixture
 {

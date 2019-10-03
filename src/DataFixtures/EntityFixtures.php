@@ -11,7 +11,19 @@ class EntityFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        
+
+        // Création d'une entité
+        $entity = new Entity();
+        $entity->setName('Autre département')
+                ->setDescription('Autre département')
+                ->setCreatedAt(new \DateTime('2001-02-20'))
+                ->setStartAt(new \DateTime('2001-02-20'));
+
+        $manager->persist($entity);
+        $manager->flush();
+
+        $this->addReference('ref-e0', $entity);
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Cabinet du ministre')
@@ -23,7 +35,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e1', $entity);
-        
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Direction Nationale de la Coopération Bilatérale')
@@ -35,7 +47,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e2', $entity);
-        
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Direction Nationale des Investissements Publics ')
@@ -47,7 +59,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e3', $entity);
-        
+
                 // Création d'une entité
         $entity = new Entity();
         $entity->setName("Direction Nationale de l'Intégration Africaine")
@@ -59,7 +71,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e4', $entity);
-        
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Division des Ressources humaines')
@@ -71,7 +83,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e5', $entity);
-        
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Secrétariat Central')
@@ -83,7 +95,7 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e6', $entity);
-        
+
         // Création d'une entité
         $entity = new Entity();
         $entity->setName('Service Accueil et Information')
