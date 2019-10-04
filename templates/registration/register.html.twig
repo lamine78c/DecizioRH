@@ -9,10 +9,11 @@
             <div class="card-header"><i class="fas fa-user-edit fa-2x"></i> Inscription</div>
             <div class="card-body">
                 {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.nom) }}
-                    {{ form_row(registrationForm.prenom) }}
+                    {{ form_row(registrationForm.firstname) }}
+                    {{ form_row(registrationForm.lastname) }}
                     {{ form_row(registrationForm.matricule) }}
                     {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.roles) }}
                     {{ form_row(registrationForm.password) }}
 
                     <button class="btn btn-primary float-right">Valider</button>
