@@ -39,7 +39,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="gender", type="string", columnDefinition="enum('masculin', 'eminin')")
+     * @ORM\Column(name="gender", type="string", columnDefinition="enum('homme', 'femme')")
      */
     private $gender;
 
@@ -51,22 +51,28 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=16, nullable=true)
+     * @ORM\Column(name="phone1", type="string", length=16, nullable=true)
      */
-    private $phone;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
+    private $phone1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=100, nullable=false)
-     *
+     * @ORM\Column(name="phone2", type="string", length=16, nullable=true)
      */
-    private $address;
+    private $phone2;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+     */
+    private $addresses;
 
     /**
      * @ORM\Column(type="json")
@@ -147,6 +153,7 @@ class User implements UserInterface
         $this->contracts = new ArrayCollection();
         $this->vacations = new ArrayCollection();
         $this->vacationRequests = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,30 +290,6 @@ class User implements UserInterface
     public function setGender(string $gender): self
     {
         $this->gender = $gender;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
 
         return $this;
     }
@@ -458,6 +441,61 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($contract->getUser() === $this) {
                 $contract->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPhone1(): ?string
+    {
+        return $this->phone1;
+    }
+
+    public function setPhone1(?string $phone1): self
+    {
+        $this->phone1 = $phone1;
+
+        return $this;
+    }
+
+    public function getPhone2(): ?string
+    {
+        return $this->phone2;
+    }
+
+    public function setPhone2(?string $phone2): self
+    {
+        $this->phone2 = $phone2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->contains($address)) {
+            $this->addresses->removeElement($address);
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
             }
         }
 

@@ -22,7 +22,7 @@ class VacationType
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=16)
+     * @ORM\Column(name="name", type="string", length=46)
      */
     private $name;
 
@@ -43,14 +43,14 @@ class VacationType
     /**
      * @var integer
      *
-     * @ORM\Column(name="basic_value", type="integer")
+     * @ORM\Column(name="basic_value", type="integer", nullable= true)
      */
     private $basicValue;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="max_allowed", type="integer")
+     * @ORM\Column(name="max_allowed", type="integer", nullable= true)
      */
     private $maxAllowed;
 

@@ -5,14 +5,15 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Contract
+ * Municipality
  *
- * @ORM\Table(name="main_function")
- * @ORM\Entity(repositoryClass="App\Repository\MainFunctionRepository")
+ * @ORM\Table(name="municipality")
+ * @ORM\Entity(repositoryClass="App\Repository\MunicipalityRepository")
  */
-class MainFunction
+class Municipality
 {
-        /**
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -22,32 +23,11 @@ class MainFunction
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=65)
+     * @ORM\Column(name="name", type="string", length=16)
      */
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="shortcut", type="string", length=8, nullable=true)
-     */
-    private $shortcut;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-        /**
-     * @var boolean
-     *
-     * @ORM\Column(name="enabled", type="boolean", options={"default":"1"})
-     */
-    private $enabled = 1;
-
-        /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -83,42 +63,6 @@ class MainFunction
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getShortcut(): ?string
-    {
-        return $this->shortcut;
-    }
-
-    public function setShortcut(?string $shortcut): self
-    {
-        $this->shortcut = $shortcut;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getEnabled(): ?bool
-    {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled): self
-    {
-        $this->enabled = $enabled;
 
         return $this;
     }
