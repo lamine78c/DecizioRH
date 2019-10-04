@@ -25,7 +25,7 @@ class Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=16)
+     * @ORM\Column(name="name", type="string", length=65)
      */
     private $name;
 
@@ -66,7 +66,7 @@ class Entity
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start_at", type="datetime")
+     * @ORM\Column(name="start_at", type="datetime", nullable=true)
      */
     private $startAt;
 
@@ -87,7 +87,7 @@ class Entity
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="closed_at", type="datetime")
+     * @ORM\Column(name="closed_at", type="datetime", nullable=true)
      */
     private $closedAt;
 
