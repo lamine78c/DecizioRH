@@ -16,6 +16,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Civilité</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Matricule</th>
@@ -26,8 +27,11 @@
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.nom }}</td>
-                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.gender }}
+                        <i class="fa fa-female fa-2x" aria-hidden="true"></i>
+                    </td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
                     <td>{{ user.matricule }}</td>
                     <td>{{ user.email }}</td>
                     <td>

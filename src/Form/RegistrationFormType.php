@@ -2,8 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Entity;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,10 +23,23 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
+            ->add('firstname')
+            ->add('lastname')
             ->add('matricule', TextType::class, ['label' => 'N° Matricule'])
             ->add('email', EmailType::class, ['label' => 'Adresse mail'])
+            ->add('entity', EntityType::class, [
+                'class' => Entity::class,
+                'choice_label' => 'name',
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Salarié'=>'ROLE_USER',
+                    'Manager'=>'ROLE_MANAGER',
+                    'Admin'=>'ROLE_ADMIN',
+                ],
+                'expanded'  => true,
+                'multiple'  => true,
+            ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 // instead of being set onto the object directly,

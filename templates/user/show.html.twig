@@ -10,7 +10,7 @@
                         <section class="card">
                         <h1><i class="fas fa-user"></i> Informations Personnelles</h1>
                         <div>
-                            Nom : {{ user.prenom }} {{ user.nom }}
+                            Nom : {{ user.firstname }} {{ user.lastname }}
                         </div>
                         <div>
                             Matricule : {{ user.matricule }}
@@ -19,13 +19,16 @@
                             Adresse mail : {{ user.email }}
                         </div>
                         <div>
-                            Date de naissance : {{ user.dateNaissance ? user.dateNaissance|date('d-m-Y') : '' }}
+                            Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
                         </div>
                         <div>
                             Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
                         </div>
                         <div>
-                            <a class="btn btn-warning float-right" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier</a>
+                            <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mes infos perso</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-warning" href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
                         </div>
                         </section>
                     </div>
