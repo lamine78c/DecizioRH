@@ -23,20 +23,22 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
+            ->add('firstname',TextType::class, ['label' => 'Prenom'])
+            ->add('lastname', TextType::class, ['label' => 'NOM'])
             ->add('matricule', TextType::class, ['label' => 'N° Matricule'])
             ->add('email', EmailType::class, ['label' => 'Adresse mail'])
             ->add('entity', EntityType::class, [
                 'class' => Entity::class,
                 'choice_label' => 'name',
+                'label' => 'Département'
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Salarié'=>'ROLE_USER',
                     'Manager'=>'ROLE_MANAGER',
                     'Admin'=>'ROLE_ADMIN',
                 ],
+                'label' => 'Rôles',
+                'attr' => ['class' => 'form-check form-check-inline'],
                 'expanded'  => true,
                 'multiple'  => true,
             ])

@@ -6,13 +6,14 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
     </head>
     <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
 
-                <a class="navbar-brand" href="{{ path('app_login') }}">CoopRH</a>
+                <a class="navbar-brand" href="{{ path('app_login') }}"><i class="fa fa-home" aria-hidden="true"></i> CoopRH</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -20,7 +21,7 @@
                 <ul class="navbar-nav ml-auto">
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_index') }}">Liste des salariés</a>
+                            <a class="nav-link" href="{{ path('user_index') }}"><i class="fa fa-users" aria-hidden="true"></i> Liste des salariés</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -28,16 +29,7 @@
                     {% if app.user %}
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-lock-open"></i> Deconnexion</a>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                                <a class="nav-link btn btn-dark  text-white" href="{{ path('app_logout') }}"><i class="fas fa-lock-open"></i> Deconnexion</a>
                             </li>
                         </ul>
                     {% endif %}

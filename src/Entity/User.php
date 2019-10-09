@@ -212,14 +212,10 @@ class User implements UserInterface
 
     public function setRoles(array $roles): self
     {
-        if (!in_array('ROLE_USER', $roles))
-        {
-            $roles[] = 'ROLE_USER';
-        }
         foreach ($roles as $role)
         {
-            if(substr($role, 0, 5) !== 'ROLE_') {
-                throw new InvalidArgumentException("Chaque rôle doit commencer par 'ROLE_'");
+            if(substr($role, 0, 5) !== 'ROLE_' && !in_array($role, ['ROLE_MANAGER', 'ROLE_ADMIN'])) {
+                throw new InvalidArgumentException("Le rôle doit être 'ROLE_MANAGER' et/ou 'ROLE_ADMIN'");
             }
         }
         $this->roles = $roles;
@@ -290,6 +286,10 @@ class User implements UserInterface
 
     public function setGender(string $gender): self
     {
+        if (!in_array($gender, ['homme', 'femme'])) {
+            throw new InvalidArgumentException("La civilité doit être homme=>M. ou femme=>Mme");
+        }
+
         $this->gender = $gender;
 
         return $this;
