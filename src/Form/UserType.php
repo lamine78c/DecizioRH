@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Entity;
 use App\Entity\User;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,11 +18,16 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
+            ->add('firstname')
+            ->add('lastname')
             ->add('matricule', TextType::class, ['label' => 'N° Matricule'])
             ->add('email', EmailType::class, ['label' => 'Adresse mail'])
-            ->add('dateNaissance', DateType::class, [
+            ->add('entity', EntityType::class, [
+                'class' => Entity::class,
+                'choice_label' => 'name',
+                'label' => 'Département'
+            ])
+            ->add('birthdate', DateType::class, [
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
             ])

@@ -17,6 +17,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <ul class="navbar-nav ml-auto">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_index') }}">Liste des salariés</a>
+                        </li>
+                    {% endif %}
+                </ul>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {% if app.user %}
                         <ul class="navbar-nav ml-auto">
