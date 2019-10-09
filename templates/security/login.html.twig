@@ -6,8 +6,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"><i class="fa fa-lock fa-2x" aria-hidden="true"></i> Connexion sécurisée</div>
+            <div class="card login-card">
+                <div class="bg-info p-1 text-white"><h3><i class="fa fa-lock fa-2x" aria-hidden="true"></i> Connexion sécurisée</h3></div>
                 <div class="card-body">
                     <form method="post">
                         {% if error %}
@@ -37,10 +37,13 @@
                                 </div>
                             #}
 
-                            <button class="btn btn-lg btn-primary float-right" type="submit">
-                                Se connecter
+                            <button class="btn btn-lg btn-danger float-right" type="submit">
+                                <i class="fa fa-lock" aria-hidden="true"></i> Se connecter
                             </button>
                     </form>
+                    <div class="link_to_change">
+                        <a href="#">Mot de passe oublié</a>
+                    </div>
                 </div>
             </div>
         </div>

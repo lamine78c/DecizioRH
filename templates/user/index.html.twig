@@ -7,33 +7,32 @@
     <section class="card card-primary">
         <div class="card-header">
             <div>
-                <a class="btn btn-primary float-right" href="{{ path('app_register') }}">Ajouter un nouveau salarié</a>
-            </div>
-            <div class="card-header">
-                <div class="d-flex justify-content-between">Liste des Salariés</div>
+                <a class="btn btn-warning float-right" href="{{ path('app_register') }}"> <i class="fas fa-user-edit" aria-hidden="true"></i>
+                    Ajouter un nouveau salarié</a>
             </div>
         </div>
+        <div class="table-responsive">
         <table class="table table-striped">
-            <thead>
+            <thead class="bg-info p-1 text-white">
                 <tr>
-                    <th>Civilité</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Matricule</th>
+                    <th>N° de Téléphone</th>
                     <th>Email</th>
+                    <th>Département</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.gender }}
-                        <i class="fa fa-female fa-2x" aria-hidden="true"></i>
-                    </td>
-                    <td>{{ user.firstname }}</td>
                     <td>{{ user.lastname }}</td>
+                    <td>{{ user.firstname }}</td>
                     <td>{{ user.matricule }}</td>
+                    <td>{{ user.phone1 }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.entity.name }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ path('user_show', {'id': user.id}) }}"><i class="fas fa-eye"></i></a>
                         <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a>
@@ -47,6 +46,7 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
     </section>
 </div>
 {% endblock %}
