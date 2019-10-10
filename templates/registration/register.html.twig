@@ -6,17 +6,18 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header"><i class="fas fa-user-edit fa-2x"></i> Inscription</div>
+            <div class="bg-info p-1 text-white"><h3><i class="fas fa-user-edit fa-2x"></i> Ajout d'un nouveau salarié</h3></div>
             <div class="card-body">
                 {{ form_start(registrationForm) }}
                     {{ form_row(registrationForm.firstname) }}
                     {{ form_row(registrationForm.lastname) }}
-                    {{ form_row(registrationForm.matricule) }}
                     {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.roles) }}
+                    {{ form_row(registrationForm.matricule) }}
+                    {{ form_row(registrationForm.entity) }}
                     {{ form_row(registrationForm.password) }}
+                    {{ form_row(registrationForm.roles) }}
 
-                    <button class="btn btn-primary float-right">Valider</button>
+                    <button class="btn btn-danger float-right"><i class="fa fa-check-square" aria-hidden="true"></i> Enregistrer</button>
                 {{ form_end(registrationForm) }}
             </div>
         </div>
