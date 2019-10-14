@@ -1,0 +1,16 @@
+<div>
+    <h3>Confirmation de creation de compte !</h3>
+
+    Bonjour {{ user.firstname }} {{ user.lastname }} ! <br />
+    Votre compte a été crée avec succès. <br />
+
+    Identifiant : {{ user.email }} <br />
+    Mot de passe : {{ plainPassword }} <br />
+
+    Pour vous connectez, cliquez sur le lien suivant : <a href="{{ url('app_login') }}">Connexion</a>.<br />
+
+    /!\ Attention : Pensez à modifier votre mot de passe dès votre première connexion. <br /><br />
+
+    Cordialement,<br />
+    L'équipe technique du Ministère de la Coopération.
+</div>
