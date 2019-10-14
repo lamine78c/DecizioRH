@@ -27,6 +27,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname', TextType::class, ['label' => 'NOM'])
             ->add('matricule', TextType::class, ['label' => 'N° Matricule'])
             ->add('email', EmailType::class, ['label' => 'Adresse mail'])
+            ->add('username', TextType::class, ['label' => 'Identifiant'])
             ->add('entity', EntityType::class, [
                 'class' => Entity::class,
                 'choice_label' => 'name',

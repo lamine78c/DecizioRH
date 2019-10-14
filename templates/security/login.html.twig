@@ -14,8 +14,8 @@
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
                             <div class="form-group">
-                                <label for="inputEmail" class="sr-only">Email</label>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                                <label for="inputUsernameOrEmail" class="sr-only">Email</label>
+                                <input type="text" value="{{ last_username }}" name="usernameOrEmail" id="inputUsernameOrEmail" class="form-control" placeholder="Identifiant ou Email" required autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword" class="sr-only">Password</label>
