@@ -17,14 +17,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -36,7 +35,8 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            // Envoie de mail
+            $this->sendMail($user, $form->get('password')->getData(), $mailer);
 
             return $this->redirectToRoute('user_index');
             /*return $guardHandler->authenticateUserAndHandleSuccess(
@@ -50,5 +50,28 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @param $user
+     * @param \Swift_Mailer $mailer
+     */
+    public function sendMail(User $user, $plainPassword, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Confirmation de création de compte'))
+            ->setFrom('camaralam@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                'emails/registration.html.twig',
+                    [
+                        'user' => $user,
+                        'plainPassword' => $plainPassword
+                    ]
+                ),
+                'text/html'
+            );
+
+        $mailer->send($message);
     }
 }
