@@ -27,6 +27,7 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class, ['label' => 'NOM'])
             ->add('matricule', TextType::class, ['label' => 'N° Matricule'])
             ->add('email', EmailType::class, ['label' => 'Adresse mail'])
+            ->add('username', TextType::class, ['label' => 'Identifiant'])
             ->add('phone1', TextType::class, ['label' => 'N° Téléphone 1'])
             ->add('phone2', TextType::class, ['label' => 'N° Téléphone 2'])
             ->add('entity', EntityType::class, [
