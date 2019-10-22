@@ -73,7 +73,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="user", orphanRemoval=true)
      */
     private $addresses;
 
