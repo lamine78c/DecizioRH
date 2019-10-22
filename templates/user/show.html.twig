@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container-fluid">
-                <div class="row">
+                <div class="row m-1">
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
@@ -39,16 +39,29 @@
                                 <div class="bg-info p-1 text-white">
                                     <h1><i class="fas fa-address-card"></i> Contact</h1>
                                 </div>
+                                <div class="row m-1">
+                                    <a class="btn btn-warning float-right" href="{{ path('address_new', {'id': user.id}) }}"><i class="fas fa-plus-square"></i> Ajouter une nouvelle adresse</a>
+                                </div>
+                                <hr />
                                 {% for address in user.addresses %}
-                                    <div>
-                                        Rue : {{ address.street }}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div>
+                                                Rue : {{ address.street }}
+                                            </div>
+                                            <div>
+                                                Quarier : {{ address.cityArea }}
+                                            </div>
+                                            <div>
+                                                Commune : {{ address.municipality.name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 ">
+                                            {{ include('address/_delete_form.html.twig') }}
+                                            <a class="btn btn-warning float-right m-1" href="{{ path('address_edit', {'id': address.id}) }}"><i class="fas fa-edit"></i> </a>
+                                        </div>
                                     </div>
-                                    <div>
-                                        Quarier : {{ address.cityArea }}
-                                    </div>
-                                    <div>
-                                        Commune : {{ address.municipality.name }}
-                                    </div>
+                                    <hr />
                                 {% endfor %}
                                 <div>
                                     Téléphone : {{ user.phone1 }}
@@ -64,6 +77,9 @@
                                 </div>
                                 <div>
                                     Département : {{ user.entity.name }}
+                                </div>
+                                <div>
+                                    Fonction : {{ user.mainFunction.name }}
                                 </div>
                                 <div>
                                     Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>

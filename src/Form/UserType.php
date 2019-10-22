@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Entity;
+use App\Entity\MainFunction;
 use App\Entity\User;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -34,6 +35,11 @@ class UserType extends AbstractType
                 'class' => Entity::class,
                 'choice_label' => 'name',
                 'label' => 'Département'
+            ])
+            ->add('mainFunction', EntityType::class, [
+                'class' => MainFunction::class,
+                'choice_label' => 'name',
+                'label' => 'Fonction'
             ])
             ->add('birthdate', DateType::class, [
                 'label' => 'Date de naissance',
