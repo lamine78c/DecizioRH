@@ -12,17 +12,20 @@
             </div>
         </div>
         <div class="table-responsive">
-        <table class="table table-striped">
+        <div class="font-weight-bold m-1">
+            Le nombre total de salariés : {{ users.getTotalItemCount }}
+        </div>
+        <table id="listUser" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead class="bg-info p-1 text-white">
                 <tr>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Matricule</th>
-                    <th>N° de Téléphone</th>
-                    <th>Email</th>
-                    <th>Identifiant</th>
-                    <th>Département</th>
-                    <th>Actions</th>
+                    <th class="th-sm">Nom</th>
+                    <th class="th-sm">Prenom</th>
+                    <th class="th-sm">Matricule</th>
+                    <th class="th-sm">N° de Téléphone</th>
+                    <th class="th-sm">Email</th>
+                    <th class="th-sm">Identifiant</th>
+                    <th class="th-sm">Département</th>
+                    <th class="th-sm">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +52,7 @@
             </tbody>
         </table>
         </div>
+        <div class="navigation ml-1">{{ knp_pagination_render(users) }}</div>
     </section>
 </div>
 {% endblock %}
