@@ -29,6 +29,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
+    /**
+     * @return \Doctrine\ORM\Query
+     */
+    public function queryAllUser(){
+        return $this->createQueryBuilder('a')
+                    ->getQuery();
+    }
+
     // /**
     //  * @return UserFixtures[] Returns an array of UserFixtures objects
     //  */
