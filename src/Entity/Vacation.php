@@ -37,9 +37,9 @@ class Vacation
     private $vacationType;
 
     /**
-     * @var \Date
+     * @var integer
      *
-     * @ORM\Column(name="birthdate", type="date")
+     * @ORM\Column(name="period", type="integer", nullable= false)
      */
     private $period;
 
@@ -74,6 +74,13 @@ class Vacation
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="expired_at", type="datetime", nullable=true)
+     */
+    private $expiredAt;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
@@ -99,12 +106,12 @@ class Vacation
         return $this->id;
     }
 
-    public function getPeriod(): ?\DateTimeInterface
+    public function getPeriod(): int
     {
         return $this->period;
     }
 
-    public function setPeriod(\DateTimeInterface $period): self
+    public function setPeriod(int $period): self
     {
         $this->period = $period;
 
@@ -158,6 +165,20 @@ class Vacation
 
         return $this;
     }
+
+    public function getExpiredAt(): ?\DateTimeInterface
+    {
+        return $this->expiredAt;
+    }
+
+    public function setExpiredAt(\DateTimeInterface $expiredAt): self
+    {
+        $this->expiredAt = $expiredAt;
+
+        return $this;
+    }
+
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

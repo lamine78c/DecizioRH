@@ -61,7 +61,14 @@ class VacationType
      */
     private $enabled = 1;
 
-        /**
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="validity_period", type="integer", nullable=true)
+     */
+    private $validityPeriod;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -157,6 +164,18 @@ class VacationType
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getValidityPeriod(): ?int
+    {
+        return $this->validityPeriod;
+    }
+
+    public function setValidityPeriod(int $validityPeriod): self
+    {
+        $this->validityPeriod = $validityPeriod;
 
         return $this;
     }
