@@ -1,7 +1,36 @@
-{{ form_start(form) }}
+{#{{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn btn-danger float-right">
         <i class="fa fa-check-square" aria-hidden="true"></i>
         {{ button_label|default('Enregistrer') }}
     </button>
-{{ form_end(form) }}
+{{ form_end(form) }}#}
+
+    <div class="form-group">
+        {{ form_label(form.street, null, {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_errors(form.street) }}
+
+        <div class="col-sm-8">
+            {# Génération de l'input. #}
+            {{ form_widget(form.street, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.cityArea, null, {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_errors(form.cityArea) }}
+
+        <div class="col-sm-8">
+            {# Génération de l'input. #}
+            {{ form_widget(form.cityArea, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.municipality, null, {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+        {{ form_errors(form.municipality) }}
+
+        <div class="col-sm-8">
+            {# Génération de l'input. #}
+            {{ form_widget(form.municipality, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+

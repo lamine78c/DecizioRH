@@ -9,7 +9,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-user-tie"></i> Informations Personnelles</h1>
+                                    <h3><i class="fas fa-user-tie"></i> Informations Personnelles</h3>
                                 </div>
                                 <div>
                                     Nom : {{ user.firstname }} {{ user.lastname }}
@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-address-card"></i> Contact</h1>
+                                    <h3><i class="fas fa-address-card"></i> Contact</h3>
                                 </div>
                                 <div class="row m-1">
                                     <a class="btn btn-warning float-right" href="{{ path('address_new', {'id': user.id}) }}"><i class="fas fa-plus-square"></i> Ajouter une nouvelle adresse</a>
@@ -73,7 +73,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-briefcase"></i>  Infos Professionnelles</h1>
+                                    <h3><i class="fas fa-briefcase"></i>  Infos Professionnelles</h3>
                                 </div>
                                 <div>
                                     Département : {{ user.entity.name }}
