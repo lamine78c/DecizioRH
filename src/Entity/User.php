@@ -12,7 +12,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Cette adresse mail exite déjà")
+ * @UniqueEntity(fields={"username"}, message="Cet identifiant exite déjà")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
@@ -72,7 +73,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="user", orphanRemoval=true)
      */
     private $addresses;
 
@@ -132,6 +133,11 @@ class User implements UserInterface
     private $contracts;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -144,6 +150,11 @@ class User implements UserInterface
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=50, unique=true, nullable=true)
+     */
+    private $username;
 
     /**
      * Constructor
@@ -195,7 +206,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -212,14 +223,10 @@ class User implements UserInterface
 
     public function setRoles(array $roles): self
     {
-        if (!in_array('ROLE_USER', $roles))
-        {
-            $roles[] = 'ROLE_USER';
-        }
         foreach ($roles as $role)
         {
-            if(substr($role, 0, 5) !== 'ROLE_') {
-                throw new InvalidArgumentException("Chaque rôle doit commencer par 'ROLE_'");
+            if(substr($role, 0, 5) !== 'ROLE_' && !in_array($role, ['ROLE_MANAGER', 'ROLE_ADMIN'])) {
+                throw new InvalidArgumentException("Le rôle doit être 'ROLE_MANAGER' et/ou 'ROLE_ADMIN'");
             }
         }
         $this->roles = $roles;
@@ -290,6 +297,10 @@ class User implements UserInterface
 
     public function setGender(string $gender): self
     {
+        if (!in_array($gender, ['homme', 'femme'])) {
+            throw new InvalidArgumentException("La civilité doit être homme=>M. ou femme=>Mme");
+        }
+
         $this->gender = $gender;
 
         return $this;
@@ -499,6 +510,25 @@ class User implements UserInterface
                 $address->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

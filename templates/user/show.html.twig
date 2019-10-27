@@ -4,43 +4,88 @@
 
 {% block body %}
     <div class="container-fluid">
-
-                <div class="row">
+                <div class="row m-1">
                     <div class="col-md-4">
-                        <section class="card">
-                        <h1><i class="fas fa-user"></i> Informations Personnelles</h1>
-                        <div>
-                            Nom : {{ user.firstname }} {{ user.lastname }}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bg-info p-1 text-white">
+                                    <h1><i class="fas fa-user-tie"></i> Informations Personnelles</h1>
+                                </div>
+                                <div>
+                                    Nom : {{ user.firstname }} {{ user.lastname }}
+                                </div>
+                                <div>
+                                    Matricule : {{ user.matricule }}
+                                </div>
+                                <div>
+                                    Identifiant : {{ user.username }}
+                                </div>
+                                <div>
+                                    Adresse mail : {{ user.email }}
+                                </div>
+                                <div>
+                                    Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
+                                </div>
+                                <div>
+                                    <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mes infos perso</a>
+                                    <a class="btn btn-warning" href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            Matricule : {{ user.matricule }}
-                        </div>
-                        <div>
-                            Adresse mail : {{ user.email }}
-                        </div>
-                        <div>
-                            Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
-                        </div>
-                        <div>
-                            Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
-                        </div>
-                        <div>
-                            <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mes infos perso</a>
-                        </div>
-                        <div>
-                            <a class="btn btn-warning" href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
-                        </div>
-                        </section>
                     </div>
                     <div class="col-md-4">
-                        <section class="card">
-                            <h1>Contact</h1>
-                        </section>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bg-info p-1 text-white">
+                                    <h1><i class="fas fa-address-card"></i> Contact</h1>
+                                </div>
+                                <div class="row m-1">
+                                    <a class="btn btn-warning float-right" href="{{ path('address_new', {'id': user.id}) }}"><i class="fas fa-plus-square"></i> Ajouter une nouvelle adresse</a>
+                                </div>
+                                <hr />
+                                {% for address in user.addresses %}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div>
+                                                Rue : {{ address.street }}
+                                            </div>
+                                            <div>
+                                                Quarier : {{ address.cityArea }}
+                                            </div>
+                                            <div>
+                                                Commune : {{ address.municipality.name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 ">
+                                            {{ include('address/_delete_form.html.twig') }}
+                                            <a class="btn btn-warning float-right m-1" href="{{ path('address_edit', {'id': address.id}) }}"><i class="fas fa-edit"></i> </a>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                {% endfor %}
+                                <div>
+                                    Téléphone : {{ user.phone1 }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <section class="card">
-                            <h1>Informations Professionnelles</h1>
-                        </section>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bg-info p-1 text-white">
+                                    <h1><i class="fas fa-briefcase"></i>  Infos Professionnelles</h1>
+                                </div>
+                                <div>
+                                    Département : {{ user.entity.name }}
+                                </div>
+                                <div>
+                                    Fonction : {{ user.mainFunction.name }}
+                                </div>
+                                <div>
+                                    Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

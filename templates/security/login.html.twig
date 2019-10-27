@@ -6,16 +6,16 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"><i class="fa fa-lock fa-2x" aria-hidden="true"></i> Connexion sécurisée</div>
+            <div class="card login-card">
+                <div class="bg-info p-1 text-white"><i class="fa fa-lock fa-2x" aria-hidden="true"></i> Connexion sécurisée</div>
                 <div class="card-body">
                     <form method="post">
                         {% if error %}
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
                             <div class="form-group">
-                                <label for="inputEmail" class="sr-only">Email</label>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                                <label for="inputUsernameOrEmail" class="sr-only">Email</label>
+                                <input type="text" value="{{ last_username }}" name="usernameOrEmail" id="inputUsernameOrEmail" class="form-control" placeholder="Identifiant ou Email" required autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword" class="sr-only">Password</label>
@@ -37,10 +37,13 @@
                                 </div>
                             #}
 
-                            <button class="btn btn-lg btn-primary float-right" type="submit">
-                                Se connecter
+                            <button class="btn btn-lg btn-danger float-right" type="submit">
+                                <i class="fa fa-lock" aria-hidden="true"></i> Se connecter
                             </button>
                     </form>
+                    <div class="link_to_change">
+                        <a href="{{ path('forgotten_password') }}">Mot de passe oublié</a>
+                    </div>
                 </div>
             </div>
         </div>
