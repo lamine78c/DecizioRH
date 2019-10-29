@@ -1,3 +1,14 @@
 .login-card {
     margin: 200px auto;
 }
+label.required{
+    color: #777 !important;
+    font-weight: normal;
+    font-family: "Open Sans", Arial, sans-serif;
+    line-height: 22px;
+    font-size: 13px;
+}
+label.required:after {
+    content: " *";
+    color: #FF0000;
+}

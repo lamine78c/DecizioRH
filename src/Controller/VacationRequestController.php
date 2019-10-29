@@ -40,7 +40,7 @@ class VacationRequestController extends AbstractController
             return $this->redirectToRoute('vacation_request_index');
         }
 
-        return $this->render('vacation_request/new.html.twig', [
+        return $this->render('vacationRequest/new.html.twig', [
             'vacation_request' => $vacationRequest,
             'form' => $form->createView(),
         ]);
