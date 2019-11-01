@@ -1,16 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Ajout d'une adresse{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        <div class="col-md-6 m-5">
-            <div class="card">
-                <div class="bg-info p-1 text-white"><i class="fas fa-user-edit fa-2x"></i> Ajout d'une adresse</div>
-                <div class="card-body">
-                    {{ include('address/_form.html.twig') }}
-                </div>
+
+<div class="row">
+    <section class="panel">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <header class="panel-heading">
+            <div class="bg-info p-1 text-white">
+                <i class="fas fa-user-edit fa-2x"></i> Ajout d'une adresse
             </div>
+        </header>
+        <div class="panel-body">
+
+        {{ include('address/_form.html.twig') }}
+
         </div>
-    </div>
+        <footer class="panel-footer">
+            <button class="btn btn-primary">
+                <i class="fa fa-check-square" aria-hidden="true"></i>
+                {{ button_label|default('Enregistrer') }}
+            </button>
+            <button type="reset" class="btn btn-warning">
+                <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+                Annuler
+            </button>
+        </footer>
+            {{ form_end(form) }}
+    </section>
+</div>
+
 {% endblock %}

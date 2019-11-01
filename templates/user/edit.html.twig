@@ -1,16 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Modification de la fiche d'un salarié{% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-    <div class="col-md-6 m-5">
-        <div class="card">
-            <div class="bg-info p-1 text-white"><i class="fas fa-user-edit fa-2x"></i> Modification de la fiche d'un salarié</div>
-            <div class="card-body">
-                {{ include('user/_form.html.twig') }}
-            </div>
-        </div>
-    </div>
-</div>
+    {{ include('user/_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $("#user_birthdate").datepicker({
+                language : "fr"
+            });
+        });
+    </script>
 {% endblock %}

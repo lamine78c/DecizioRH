@@ -1,93 +1,132 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Profil Salarié{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
-                <div class="row m-1">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-user-tie"></i> Informations Personnelles</h1>
-                                </div>
-                                <div>
-                                    Nom : {{ user.firstname }} {{ user.lastname }}
-                                </div>
-                                <div>
-                                    Matricule : {{ user.matricule }}
-                                </div>
-                                <div>
-                                    Identifiant : {{ user.username }}
-                                </div>
-                                <div>
-                                    Adresse mail : {{ user.email }}
-                                </div>
-                                <div>
-                                    Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
-                                </div>
-                                <div>
-                                    <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mes infos perso</a>
-                                    <a class="btn btn-warning" href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
+        <div class="row m-1">
+            <div class="col-md-4">
+                <section class="panel panel-featured-left panel-featured-primary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-primary">
+                                    <i class="fas fa-user-tie"></i>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-address-card"></i> Contact</h1>
-                                </div>
-                                <div class="row m-1">
-                                    <a class="btn btn-warning float-right" href="{{ path('address_new', {'id': user.id}) }}"><i class="fas fa-plus-square"></i> Ajouter une nouvelle adresse</a>
-                                </div>
-                                <hr />
-                                {% for address in user.addresses %}
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div>
-                                                Rue : {{ address.street }}
-                                            </div>
-                                            <div>
-                                                Quarier : {{ address.cityArea }}
-                                            </div>
-                                            <div>
-                                                Commune : {{ address.municipality.name }}
-                                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Infos Personnelles</h4>
+                                    <div class="info">
+                                        <strong class="amount">{{ user.firstname }} {{ user.lastname }}</strong>
+                                        <span class="text-primary"><a  href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i></a></span>
+                                        <div>
+                                            Matricule : {{ user.matricule }}
                                         </div>
-                                        <div class="col-sm-6 ">
-                                            {{ include('address/_delete_form.html.twig') }}
-                                            <a class="btn btn-warning float-right m-1" href="{{ path('address_edit', {'id': address.id}) }}"><i class="fas fa-edit"></i> </a>
+                                        <div>
+                                            Identifiant : {{ user.username }}
+                                        </div>
+                                        <div>
+                                            Adresse mail : {{ user.email }}
+                                        </div>
+                                        <div>
+                                            Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
                                         </div>
                                     </div>
-                                    <hr />
-                                {% endfor %}
-                                <div>
-                                    Téléphone : {{ user.phone1 }}
+                                </div>
+                                <div class="summary-footer">
+                                    <div>
+                                        <a class="btn btn-warning"
+                                           href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-briefcase"></i>  Infos Professionnelles</h1>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section class="panel panel-featured-left panel-featured-secondary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-secondary">
+                                    <i class="fas fa-address-card"></i>
                                 </div>
-                                <div>
-                                    Département : {{ user.entity.name }}
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Infos de contact</h4>
+                                    {% for address in user.addresses %}
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div>
+                                                    Rue : {{ address.street }}
+                                                </div>
+                                                <div>
+                                                    Quarier : {{ address.cityArea }}
+                                                </div>
+                                                <div>
+                                                    Commune : {{ address.municipality.name }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 ">
+                                                {{ include('address/_delete_form.html.twig') }}
+                                                <a class="btn btn-warning float-right m-1"
+                                                   href="{{ path('address_edit', {'id': address.id}) }}"><i
+                                                            class="fas fa-edit"></i> </a>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                    {% endfor %}
+                                    <div>
+                                        Téléphone : {{ user.phone1 }}
+                                    </div>
                                 </div>
-                                <div>
-                                    Fonction : {{ user.mainFunction.name }}
-                                </div>
-                                <div>
-                                    Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
+                                <div class="summary-footer">
+                                    <div class="row m-1">
+                                        <a class="btn btn-warning float-right"
+                                           href="{{ path('address_new', {'id': user.id}) }}"><i
+                                                    class="fas fa-plus-square"></i> Ajouter une nouvelle adresse</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+            </div>
+            <div class="col-md-4 ">
+                <section class="panel panel-featured-left panel-featured-quartenary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-quartenary">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Infos Professionnelles</h4>
+                                    <div>
+                                        Département : {{ user.entity.name }}
+                                    </div>
+                                    <div>
+                                        Fonction : {{ user.mainFunction.name }}
+                                    </div>
+                                    <div>
+                                        Date d'entrée :
+                                        <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">(report)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
 
     </div>
 {% endblock %}

@@ -24,14 +24,14 @@ class VacationRequest
      *
      * @ORM\Column(name="user_comment", type="text", nullable=true)
      */
-    private $user_comment;
+    private $userComment;
 
     /**
      * @var string
      *
      * @ORM\Column(name="manager_comment", type="text", nullable=true)
      */
-    private $manager_comment;
+    private $managerComment;
 
     /**
      * @var User
@@ -173,24 +173,24 @@ class VacationRequest
 
     public function getUserComment(): ?string
     {
-        return $this->user_comment;
+        return $this->userComment;
     }
 
-    public function setUserComment(?string $user_comment): self
+    public function setUserComment(?string $userComment): self
     {
-        $this->user_comment = $user_comment;
+        $this->userComment = $userComment;
 
         return $this;
     }
 
     public function getManagerComment(): ?string
     {
-        return $this->manager_comment;
+        return $this->managerComment;
     }
 
-    public function setManagerComment(?string $manager_comment): self
+    public function setManagerComment(?string $managerComment): self
     {
-        $this->manager_comment = $manager_comment;
+        $this->managerComment = $managerComment;
 
         return $this;
     }

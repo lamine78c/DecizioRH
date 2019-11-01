@@ -14,13 +14,14 @@ class RequestStatusFixtures extends Fixture
 
         $statusList = ['En cours', 'Validée', 'Rejetée'];
 
-        foreach ($statusList as $value) {
+        foreach ($statusList as $key => $value) {
             $status = new RequestStatus();
             $status->setName($value);
 
             $manager->persist($status);
-
             $manager->flush();
+
+            $this->addReference('status-' . $key, $status);
         }
 
     }

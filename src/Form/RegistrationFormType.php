@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => 'Rôles',
                 'attr' => ['class' => 'form-check form-check-inline'],
-                'expanded'  => true,
+                'expanded'  => false,
                 'multiple'  => true,
             ])
             ->add('password', PasswordType::class, [
