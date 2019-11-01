@@ -12,3 +12,8 @@ label.required:after {
     content: " *";
     color: #FF0000;
 }
+
+table thead {
+    background-color: #34495e;
+    color: #fff;
+}

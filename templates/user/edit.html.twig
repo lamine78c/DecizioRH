@@ -3,28 +3,15 @@
 {% block title %}Modification de la fiche d'un salarié{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <section class="panel">
-            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-            <header class="panel-heading">
-                <div class="bg-info p-1 text-white">
-                    <i class="fas fa-user-edit fa-2x"></i> Modification de la fiche d'un salarié
-                </div>
-            </header>
-            <div class="panel-body">
-                {{ include('user/_form.html.twig') }}
-            </div>
-            <footer class="panel-footer">
-                <button class="btn btn-primary">
-                    <i class="fa fa-check-square" aria-hidden="true"></i>
-                    {{ button_label|default('Enregistrer') }}
-                </button>
-                <button type="reset" class="btn btn-warning">
-                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
-                    Annuler
-                </button>
-            </footer>
-            {{ form_end(form) }}
-        </section>
-    </div>
+    {{ include('user/_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $( function() {
+            $("#user_birthdate").datepicker({
+                language : "fr"
+            });
+        });
+    </script>
 {% endblock %}
