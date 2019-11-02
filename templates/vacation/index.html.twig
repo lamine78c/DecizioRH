@@ -3,48 +3,52 @@
 {% block title %}Soldes des Congés{% endblock %}
 
 {% block body %}
-    <h1>Soldes des Congés</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Salarié</th>
-                <th>Période</th>
-                <th>Début cumul</th>
-                <th>Fin cumul</th>
-                <th>Acquis</th>
-                <th>Utilisé(s)</th>
-                <th>Solde</th>
-                <th>Type</th>
-                <th>Utilisable jusqu'au</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for vacation in vacations %}
-            <tr>
-                <td>{{ vacation.user.firstName }} {{ vacation.user.lastName }}</td>
-                <td>{{ vacation.period }}</td>
-                <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
-                <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
-                <td>{{ vacation.win }}</td>
-                <td>{{ vacation.spent }}</td>
-                <td>{{  vacation.win  - vacation.spent }}</td>
-                <td>{{ vacation.vacationType.name }}</td>
-                <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Acquis & Soldes</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <thead>
+                    <tr>
+                        <th>Salarié</th>
+                        <th>Période</th>
+                        <th>Début cumul</th>
+                        <th>Fin cumul</th>
+                        <th>Acquis</th>
+                        <th>Utilisé(s)</th>
+                        <th>Solde</th>
+                        <th>Type</th>
+                        <th>Utilisable jusqu'au</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vacation in vacations %}
+                        <tr>
+                            <td>{{ vacation.user.firstName }} {{ vacation.user.lastName }}</td>
+                            <td>{{ vacation.period }}</td>
+                            <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacation.win }}</td>
+                            <td>{{ vacation.spent }}</td>
+                            <td>{{  vacation.win  - vacation.spent }}</td>
+                            <td>{{ vacation.vacationType.name }}</td>
+                            <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
 
-                <td>
-                    <a href="{{ path('vacation_show', {'id': vacation.id}) }}">show</a>
-                    <a href="{{ path('vacation_edit', {'id': vacation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('vacation_new') }}">Create new</a>
+                            <td>
+                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}"><i class="btn btn-info fa fa-eye"></i></a>
+                                <a href="{{ path('vacation_edit', {'id': vacation.id}) }}"><i class="btn btn-warning fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

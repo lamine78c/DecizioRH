@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\VacationRequest;
 
 class VacationController extends AbstractController
 {
@@ -51,8 +52,13 @@ class VacationController extends AbstractController
      */
     public function show(Vacation $vacation): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $vacationRequests = $em->getRepository(VacationRequest::class)->findBy(['user' => $vacation->getUser()]);
+
         return $this->render('vacation/show.html.twig', [
             'vacation' => $vacation,
+            'vacationRequests' => $vacationRequests,
         ]);
     }
 

@@ -1,0 +1,39 @@
+<section class="panel">
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-none">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Période</th>
+                        <th>Acquis</th>
+                        <th>Utilisé(s)</th>
+                        <th>Solde</th>
+                        <th>Début cumul</th>
+                        <th>Fin cumul</th>
+                        <th>Valable jusqu'au</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vacation in vacations %}
+                         <tr>
+                            <td>{{ vacation.vacationType.name }}</td>
+                            <td>{{ vacation.period }}</td>
+                            <td>{{ vacation.win }}</td>
+                            <td>{{ vacation.spent }}</td>
+                            <td>{{  vacation.win  - vacation.spent }}</td>
+                            <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

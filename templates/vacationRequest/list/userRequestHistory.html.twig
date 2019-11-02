@@ -1,0 +1,35 @@
+<section class="panel">
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-none">
+                <thead>
+                    <tr>
+                        <th>Type d'absence</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Statut</th>
+                        <th>Date de la demande</th>
+                        <th>Dernière de mise à jour</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vacationRequest in vacationRequests %}
+                        <tr>
+                            <td>{{ vacationRequest.vacationType.name }}</td>
+                            <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.requestStatus.name }}</td>
+                            <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
