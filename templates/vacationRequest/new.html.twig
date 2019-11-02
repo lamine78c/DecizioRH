@@ -1,11 +1,39 @@
 {% extends 'baseBack.html.twig' %}
 
-{% block title %}New VacationRequest{% endblock %}
+{% block title %}Nouvelle demande d'absence{% endblock %}
 
 {% block body %}
-    <h1>Create new VacationRequest</h1>
 
     {{ include('vacationRequest/_form.html.twig') }}
 
     <a href="{{ path('vacation_request_index') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            $('#startDate').datepicker({
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                minDate: today,
+                format: 'dd/mm/yyyy',
+                language: 'fr',
+                startDate: today,
+                maxDate: function () {
+                    return $('#endDate').val();
+                }
+            });
+            $('#endDate').datepicker({
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                minDate: function () {
+                    return $('#startDate').val();
+                },
+                format: 'dd/mm/yyyy',
+                language: 'fr',
+            });
+        });
+    </script>
 {% endblock %}

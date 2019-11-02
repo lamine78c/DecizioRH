@@ -3,39 +3,44 @@
 {% block title %}congés et absences{% endblock %}
 
 {% block body %}
-    <h1>Demandes de congés et absences</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Salarié</th>
-                <th>Début</th>
-                <th>Fin</th>
-                <th>Type d'absence</th>
-                <th>Statut</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for vacationRequest in vacationRequests %}
-            <tr>
-                <td>{{ vacationRequest.user.firstName }} {{ vacationRequest.user.lastName }}</td>
-                <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
-                <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
-                <td>{{ vacationRequest.vacationType.name }}</td>
-                <td>{{ vacationRequest.requestStatus.name }}</td>
-                <td class="actions">
-                    <a href="{{ path('vacation_request_show', {'id': vacationRequest.id}) }}"><i class="fa fa-eye"></i></a>
-                    <a href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}"><i class="fa fa-edit"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('vacation_request_new') }}">Create new</a>
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Demandes de congés et absences</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <thead>
+                    <tr>
+                        <th>Salarié</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Type d'absence</th>
+                        <th>Statut</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for vacationRequest in vacationRequests %}
+                    <tr>
+                        <td>{{ vacationRequest.user.firstName }} {{ vacationRequest.user.lastName }}</td>
+                        <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                        <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                        <td>{{ vacationRequest.vacationType.name }}</td>
+                        <td>{{ vacationRequest.requestStatus.name }}</td>
+                        <td class="actions">
+                            <a href="{{ path('vacation_request_show', {'id': vacationRequest.id}) }}"><i class="fa fa-eye"></i></a>
+                            <a href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <a href="{{ path('vacation_request_new') }}" class="btn btn-primary" role="button">Effectuez une nouvelle demande</a>
 {% endblock %}
