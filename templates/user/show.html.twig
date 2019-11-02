@@ -110,9 +110,11 @@
                                     <div>
                                         Département : {{ user.entity.name }}
                                     </div>
+                                    {% if user.mainFunction %}
                                     <div>
                                         Fonction : {{ user.mainFunction.name }}
                                     </div>
+                                    {% endif %}
                                     <div>
                                         Date d'entrée :
                                         <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
