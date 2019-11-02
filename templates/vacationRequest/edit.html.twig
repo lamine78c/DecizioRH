@@ -3,64 +3,57 @@
 {% block title %}Demandes de congés et absences{% endblock %}
 
 {% block body %}
-    
-    <h3>Demandes de congés et absences</h3>
 
     {{ include('vacationRequest/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('vacation_request_index') }}">back to list</a>
+    <div class="row">
+        <div class="col-md-12">
 
-    {{ include('vacationRequest/_delete_form.html.twig') }}
+            <div class="toggle" data-plugin-toggle>
+                <section class="toggle active">
+                    <label>Synthèse soldes congés</label>
+
+                    <div class="toggle-content">
+                        {{ include('vacationRequest/list/userVacations.html.twig') }}
+                    </div>
+                </section>
+                <section class="toggle active">
+                    <label>Historique des demandes</label>
+
+                    <div class="toggle-content">
+                        {{ include('vacationRequest/list/userRequestHistory.html.twig') }}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-{#        $(function () {
-            $('#datetimepicker6').datetimepicker();
-            $('#datetimepicker7').datetimepicker({
-                useCurrent: false //Important! See issue #1075
-            });
-            $("#datetimepicker6").on("dp.change", function (e) {
-                $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-            });
-            $("#datetimepicker7").on("dp.change", function (e) {
-                $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-            });
-        });#}
-            
-            
-            
         $(document).ready(function() {
-{#            // you may need to change this code if you are not using Bootstrap Datepicker
-            $('.js-datepicker').datepicker({
-                format: 'yyyy-mm-dd'
+            var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            $('#startDate').datepicker({
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                minDate: today,
+                format: 'dd/mm/yyyy',
+                language: 'fr',
+                startDate: today,
+                maxDate: function () {
+                    return $('#endDate').val();
+                }
             });
-            
-            console.log('Bonjour+++++++++');#}
-                    
-                console.log('Bonjour');
-             var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-        $('#startDate').datepicker({
-            uiLibrary: 'bootstrap4',
-            iconsLibrary: 'fontawesome',
-            minDate: today,
-            format: 'dd/mm/yyyy',
-            language: 'fr',
-            startDate: today,
-            maxDate: function () {
-                return $('#endDate').val();
-            }
+            $('#endDate').datepicker({
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                minDate: function () {
+                    return $('#startDate').val();
+                },
+                format: 'dd/mm/yyyy',
+                language: 'fr',
+            });
         });
-        $('#endDate').datepicker({
-            uiLibrary: 'bootstrap4',
-            iconsLibrary: 'fontawesome',
-            minDate: function () {
-                return $('#startDate').val();
-            }
-        });        
-                    
-         });
-             
-
     </script>
 {% endblock %}

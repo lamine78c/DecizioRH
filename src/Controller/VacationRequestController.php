@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\VacationRequest;
-use App\Form\VacationRequestType;
 use App\Repository\VacationRequestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Vacation;
+use App\Entity\VacationRequest;
+use App\Form\VacationRequestType;
+use App\Form\VacationRequestEditType;
 
 class VacationRequestController extends AbstractController
 {
@@ -41,7 +43,7 @@ class VacationRequestController extends AbstractController
         }
 
         return $this->render('vacationRequest/new.html.twig', [
-            'vacation_request' => $vacationRequest,
+            'vacationRequest' => $vacationRequest,
             'form' => $form->createView(),
         ]);
     }
@@ -61,7 +63,7 @@ class VacationRequestController extends AbstractController
      */
     public function edit(Request $request, VacationRequest $vacationRequest): Response
     {
-        $form = $this->createForm(VacationRequestType::class, $vacationRequest);
+        $form = $this->createForm(VacationRequestEditType::class, $vacationRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -70,8 +72,15 @@ class VacationRequestController extends AbstractController
             return $this->redirectToRoute('vacation_request_index');
         }
 
+        $em = $this->getDoctrine()->getManager();
+
+        $vacations= $em->getRepository(Vacation::class)->findBy(['user' => $vacationRequest->getUser()]);
+        $vacationRequests = $em->getRepository(VacationRequest::class)->findBy(['user' => $vacationRequest->getUser()]);
+
         return $this->render('vacationRequest/edit.html.twig', [
             'vacationRequest' => $vacationRequest,
+            'vacationRequests' => $vacationRequests,
+            'vacations' => $vacations,
             'form' => $form->createView(),
         ]);
     }

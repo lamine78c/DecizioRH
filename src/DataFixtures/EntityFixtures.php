@@ -28,6 +28,7 @@ class EntityFixtures extends Fixture
         $entity = new Entity();
         $entity->setName('Cabinet du ministre')
                 ->setDescription('Cabinet du ministre')
+                ->setShortcut('CMT')
                 ->setCreatedAt(new \DateTime('2001-02-20'))
                 ->setStartAt(new \DateTime('2001-02-20'));
 
@@ -38,8 +39,9 @@ class EntityFixtures extends Fixture
 
         // Création d'une entité
         $entity = new Entity();
-        $entity->setName('Direction Nationale de la Coopération Bilatérale')
+        $entity->setName('Direction Générale de la Coopération Bilatérale')
                 ->setDescription('Direction Nationale de la Coopération Bilatérale')
+                ->setShortcut('DGCB')
                 ->setCreatedAt(new \DateTime('2001-02-20'))
                 ->setStartAt(new \DateTime('2001-02-20'));
 
@@ -60,10 +62,11 @@ class EntityFixtures extends Fixture
 
         $this->addReference('ref-e3', $entity);
 
-                // Création d'une entité
+        // Création d'une entité
         $entity = new Entity();
         $entity->setName("Direction Nationale de l'Intégration Africaine")
                 ->setDescription("Direction Nationale de l'Intégration Africaine")
+                ->setShortcut('DNIA')
                 ->setCreatedAt(new \DateTime('2001-02-20'))
                 ->setStartAt(new \DateTime('2001-02-20'));
 
@@ -86,8 +89,9 @@ class EntityFixtures extends Fixture
 
         // Création d'une entité
         $entity = new Entity();
-        $entity->setName('Secrétariat Central')
-                ->setDescription('Secrétariat Central.')
+        $entity->setName('Secrétariat Général')
+                ->setDescription('Secrétariat Général')
+                ->setShortcut('SG')
                 ->setCreatedAt(new \DateTime('2001-02-20'))
                 ->setStartAt(new \DateTime('2001-02-20'));
 
@@ -98,8 +102,9 @@ class EntityFixtures extends Fixture
 
         // Création d'une entité
         $entity = new Entity();
-        $entity->setName('Service Accueil et Information')
-                ->setDescription('Service Accueil et Information')
+        $entity->setName("Service d'appui")
+                ->setDescription("Service d'appui")
+                ->setShortcut('SA')
                 ->setCreatedAt(new \DateTime('2001-02-20'))
                 ->setStartAt(new \DateTime('2001-02-20'));
 
@@ -107,6 +112,31 @@ class EntityFixtures extends Fixture
         $manager->flush();
 
         $this->addReference('ref-e7', $entity);
+
+        // Création d'une entité
+        $entity = new Entity();
+        $entity->setName("Direction Nationale")
+                ->setDescription("Direction Nationale")
+                ->setShortcut('DN')
+                ->setCreatedAt(new \DateTime('2001-02-20'))
+                ->setStartAt(new \DateTime('2001-02-20'));
+
+        $manager->persist($entity);
+        $manager->flush();
+
+        $this->addReference('ref-e8', $entity);
+
+//        // Création d'une entité
+//        $entity = new Entity();
+//        $entity->setName('Service Accueil et Information')
+//                ->setDescription('Service Accueil et Information')
+//                ->setCreatedAt(new \DateTime('2001-02-20'))
+//                ->setStartAt(new \DateTime('2001-02-20'));
+//
+//        $manager->persist($entity);
+//        $manager->flush();
+//
+//        $this->addReference('ref-e7', $entity);
 
     }
 }
