@@ -89,9 +89,9 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var \Datetime
+     * @var \Date
      *
-     * @ORM\Column(name="birthdate", type="datetime", nullable=true)
+     * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
     private $birthDate;
 
