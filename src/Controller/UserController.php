@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\VacationRequest;
 use App\Form\UserType;
+use App\Form\UserVacationRequestType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,5 +79,30 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @Route("/{id}/vacation-request/new", name="user_vacation_request_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, User $user): Response
+    {
+        $vacationRequest = new VacationRequest();
+        $form = $this->createForm(UserVacationRequestType::class, $vacationRequest);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $vacationRequest->setUser($user);
+            $vacationRequest->setRequestStatus();
+            $entityManager->persist($vacationRequest);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+        }
+
+        return $this->render('vacationRequest/userVacationRequestNew.html.twig', [
+            'vacationRequest' => $vacationRequest,
+            'form' => $form->createView(),
+        ]);
     }
 }

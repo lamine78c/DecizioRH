@@ -138,6 +138,7 @@
                 <label>Historique des demandes</label>
 
                 <div class="toggle-content">
+                    <a class="btn btn-warning" href="{{ path('user_vacation_request_new', {'id': user.id}) }}"><i class="fas fa-edit"></i> Faire une nouvelle demande de congés</a>
                     {% include 'vacationRequest/list/userRequestHistory.html.twig' with {'vacationRequests': user.vacationRequests} %}
                 </div>
             </section>
