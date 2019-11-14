@@ -11,7 +11,7 @@ class ChangePassword
     /**
      * @Assert\Length(
      *     min = 6,
-     *     minMessage = "Password should by at least 6 chars long"
+     *     minMessage = "Votre mot de passe doit contenir au minimun 6 caractères"
      * )
      */
     public $newPassword;

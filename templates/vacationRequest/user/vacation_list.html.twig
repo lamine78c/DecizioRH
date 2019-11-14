@@ -1,0 +1,11 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Acquis et soldes congés Salarié{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <section class="panel">
+            {% include 'vacationRequest/list/userVacations.html.twig' with {'vacations': user.vacations} %}
+        </section>
+    </div>
+{% endblock %}
