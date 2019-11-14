@@ -51,6 +51,7 @@
                 </tbody>
             </table>
         </div>
+        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
         <footer class="panel-footer">
             <a href="{{ path('vacation_request_index') }}" class="btn btn-info">
                 <i class="fas fa-circle-notch"></i>Retour à la list
@@ -59,6 +60,16 @@
                 <i class="fas fa-edit"></i>Modifier
             </a>
         </footer>
+        {% else %}
+            <footer class="panel-footer">
+                <a href="{{ path('user_vacation_request_list', {'id': vacationRequest.user.id}) }}" class="btn btn-info">
+                    <i class="fas fa-circle-notch"></i>Retour à la list
+                </a>
+                <a href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i>Modifier
+                </a>
+            </footer>
+        {% endif %}
     </section>
 
 {% endblock %}

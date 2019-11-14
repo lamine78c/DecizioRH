@@ -17,3 +17,7 @@ table thead {
     background-color: #34495e;
     color: #fff;
 }
+
+form.delete-btn {
+    display: inline-block;
+}

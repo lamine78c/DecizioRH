@@ -15,6 +15,7 @@ class UserVacationRequestType extends AbstractType
                 'required' => false,
             ])
             ->remove('user')
+            ->remove('requestStatus')
             ->remove('managerComment');
     }
     public function getParent()

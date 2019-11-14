@@ -1,0 +1,24 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Congés Salarié{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <section class="panel">
+        <header class="panel-heading">
+            <div class="card-header">
+                <div>
+                    <a class="btn btn-primary" href="{{ path('user_vacation_request_new', {'id': user.id}) }}">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                         Faire une nouvelle demande de congés
+                    </a>
+                </div>
+            </div>
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+            </div>
+        </header>
+        {% include 'vacationRequest/list/userRequestHistory.html.twig' with {'vacationRequests': user.vacationRequests} %}
+        </section>
+    </div>
+{% endblock %}
