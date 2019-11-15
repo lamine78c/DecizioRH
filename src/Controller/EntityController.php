@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entity;
-use App\Form\EntityType;
+use App\Form\OrganizationalEntityType;
 use App\Repository\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class EntityController extends AbstractController
     public function new(Request $request): Response
     {
         $entity = new Entity();
-        $form = $this->createForm(EntityType::class, $entity);
+        $form = $this->createForm(OrganizationalEntityType::class, $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,7 +61,7 @@ class EntityController extends AbstractController
      */
     public function edit(Request $request, Entity $entity): Response
     {
-        $form = $this->createForm(EntityType::class, $entity);
+        $form = $this->createForm(OrganizationalEntityType::class, $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

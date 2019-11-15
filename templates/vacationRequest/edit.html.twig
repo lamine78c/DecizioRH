@@ -31,29 +31,10 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/vacation-request.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-            $('#startDate').datepicker({
-                uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome',
-                minDate: today,
-                format: 'dd/mm/yyyy',
-                language: 'fr',
-                startDate: today,
-                maxDate: function () {
-                    return $('#endDate').val();
-                }
-            });
-            $('#endDate').datepicker({
-                uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome',
-                minDate: function () {
-                    return $('#startDate').val();
-                },
-                format: 'dd/mm/yyyy',
-                language: 'fr',
-            });
+            initDateRangePicker()
         });
     </script>
 {% endblock %}

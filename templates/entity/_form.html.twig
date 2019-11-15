@@ -1,4 +1,47 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.name, "Nom", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+    {{ form_errors(form.name) }}
+
+    <div class="col-md-6">
+        {# Génération de l'input. #}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.shortcut, "Abréviation", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+    {{ form_errors(form.shortcut) }}
+
+    <div class="col-md-6">
+        {# Génération de l'input. #}
+        {{ form_widget(form.shortcut, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.startAt, "Date de début", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+    {{ form_errors(form.startAt) }}
+
+    <div class="col-md-6">
+        {# Génération de l'input. #}
+        {{ form_widget(form.startAt, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.parent, "Parent", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+    {{ form_errors(form.parent) }}
+
+    <div class="col-md-6">
+        {# Génération de l'input. #}
+        {{ form_widget(form.parent, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.description, "Description", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+    {{ form_errors(form.description) }}
+
+    <div class="col-md-6">
+        {# Génération de l'input. #}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '6', 'cols': '80'}}) }}
+    </div>
+</div>

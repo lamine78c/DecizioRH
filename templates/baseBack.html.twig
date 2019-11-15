@@ -92,8 +92,16 @@
 
                     <section role="main" class="content-body">
                             <header class="page-header">
-
                             </header>
+
+                            {% for label, messages in app.flashes %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ label }}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
 
                             <!-- start: page -->
                             {% block body %}
@@ -140,6 +148,7 @@
                 <script src="{{asset('assets/vendor/select2/select2.js')}}"></script>
 
                 <script src="{{asset('assets/javascripts/tables/examples.datatables.default.js')}}"></script>
+                <script src="{{ asset('js/app.js') }}"></script>
 
             {% endblock %}
 
