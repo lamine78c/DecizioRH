@@ -75,6 +75,6 @@ class AddressController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('address_index');
+        return $this->redirectToRoute('user_show', ['id' => $address->getUser()->getId()]);
     }
 }

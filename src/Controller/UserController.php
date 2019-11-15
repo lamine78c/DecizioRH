@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\VacationRequest;
 use App\Form\UserType;
+use App\Form\UserVacationRequestType;
+use App\Repository\RequestStatusRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,13 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/user")
- */
+
 class UserController extends AbstractController
 {
     /**
-     * @Route("/list", name="user_index", methods={"GET"})
+     * @Route("/admin/user/list", name="user_index", methods={"GET"})
      *  @Security("has_role('ROLE_ADMIN')")
      */
     public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
@@ -36,7 +37,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/user/{id}/profil", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -46,7 +47,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -66,7 +67,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -77,5 +78,72 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @Route("/user/{id}/vacation-request/list", name="user_vacation_request_list", methods={"GET"})
+     */
+    public function vacationRequestList(User $user): Response
+    {
+        return $this->render('vacationRequest/user/vacation_request_list.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}/vacation/list", name="user_vacation_list", methods={"GET"})
+     */
+    public function vacationList(User $user): Response
+    {
+        return $this->render('vacationRequest/user/vacation_list.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}/vacation-request/new", name="user_vacation_request_new", methods={"GET","POST"})
+     */
+    public function new(Request $request, User $user, RequestStatusRepository $requestStatusRepository): Response
+    {
+        $vacationRequest = new VacationRequest();
+        $form = $this->createForm(UserVacationRequestType::class, $vacationRequest);
+        $form->handleRequest($request);
+
+        $status = $requestStatusRepository->findOneBy(['name' => 'En Cours']);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $vacationRequest->setUser($user);
+            $vacationRequest->setRequestStatus($status);
+            $entityManager->persist($vacationRequest);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_vacation_request_list', ['id' => $user->getId()]);
+        }
+
+        return $this->render('vacationRequest/user/vacation_request_new_or_edit_form.html.twig', [
+            'vacationRequest' => $vacationRequest,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/{id}/vacation-request/edit", name="user_vacation_request_edit", methods={"GET","POST"})
+     */
+    public function vacationRequestEdit(Request $request, VacationRequest $vacationRequest): Response
+    {
+        $form = $this->createForm(UserVacationRequestType::class, $vacationRequest);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_vacation_request_list', ['id' => $vacationRequest->getUser()->getId()]);
+        }
+
+        return $this->render('vacationRequest/user/vacation_request_new_or_edit_form.html.twig', [
+            'vacationRequest' => $vacationRequest,
+            'form' => $form->createView(),
+        ]);
     }
 }
