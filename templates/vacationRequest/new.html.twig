@@ -1,0 +1,19 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Nouvelle demande d'absence{% endblock %}
+
+{% block body %}
+
+    {{ include('vacationRequest/_form.html.twig') }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/vacation-request.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            initDateRangePicker()
+        });
+    </script>
+{% endblock %}

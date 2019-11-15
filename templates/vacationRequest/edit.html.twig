@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Demandes de congés et absences{% endblock %}
+
+{% block body %}
+
+    {{ include('vacationRequest/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="toggle" data-plugin-toggle>
+                <section class="toggle active">
+                    <label>Synthèse soldes congés</label>
+
+                    <div class="toggle-content">
+                        {{ include('vacationRequest/list/userVacations.html.twig') }}
+                    </div>
+                </section>
+                <section class="toggle active">
+                    <label>Historique des demandes</label>
+
+                    <div class="toggle-content">
+                        {{ include('vacationRequest/list/userRequestHistory.html.twig') }}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/vacation-request.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            initDateRangePicker()
+        });
+    </script>
+{% endblock %}

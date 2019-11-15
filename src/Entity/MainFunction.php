@@ -22,14 +22,14 @@ class MainFunction
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=65)
+     * @ORM\Column(name="name", type="string", length=125)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shortcut", type="string", length=8, nullable=true)
+     * @ORM\Column(name="shortcut", type="string", length=16, nullable=true)
      */
     private $shortcut;
 

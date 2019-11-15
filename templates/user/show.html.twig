@@ -1,77 +1,241 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
 {% block title %}Profil Salarié{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-user-tie"></i> Informations Personnelles</h1>
-                                </div>
-                                <div>
-                                    Nom : {{ user.firstname }} {{ user.lastname }}
-                                </div>
-                                <div>
-                                    Matricule : {{ user.matricule }}
-                                </div>
-                                <div>
-                                    Identifiant : {{ user.username }}
-                                </div>
-                                <div>
-                                    Adresse mail : {{ user.email }}
-                                </div>
-                                <div>
-                                    Date de naissance : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
-                                </div>
-                                <div>
-                                    <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mes infos perso</a>
-                                    <a class="btn btn-warning" href="{{ path('change_password', {'id': user.id}) }}"><i class="fas fa-edit"></i> Modifier mon mot de passe</a>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-3">
+
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="thumb-info mb-md">
+                        <img src="{{asset('assets/images/!logged-user.jpg')}}" class="rounded img-responsive" alt="John Doe">
+                        <div class="thumb-info-title">
+                            <span class="thumb-info-inner">{{ user.firstname }} {{ user.lastname }}</span>
+                            <span class="thumb-info-type">{{ user.roles[0] }}</span>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-address-card"></i> Contact</h1>
-                                </div>
-                                {% for address in user.addresses %}
-                                    <div>
-                                        Rue : {{ address.street }}
-                                    </div>
-                                    <div>
-                                        Quarier : {{ address.cityArea }}
-                                    </div>
-                                    <div>
-                                        Commune : {{ address.municipality.name }}
-                                    </div>
-                                {% endfor %}
-                                <div>
-                                    Téléphone : {{ user.phone1 }}
+
+                    <div class="widget-toggle-expand mb-md">
+                        <div class="widget-header">
+                            <h6>40% du profil complété</h6>
+                            <div class="widget-toggle">+</div>
+                        </div>
+                        <div class="widget-content-collapsed">
+                            <div class="progress progress-xs light">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: 40%;">
+                                    40%
                                 </div>
                             </div>
+                        </div>
+                        <div class="widget-content-expanded">
+                            <ul class="simple-todo-list">
+                                <li class="completed">Informations personnelles</li>
+                                <li class="completed">Adresse</li>
+                                <li>Formations</li>
+                                <li>Compétences</li>
+                                <li>Expériences</li>
+                                <li>Modification du mot de passe</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bg-info p-1 text-white">
-                                    <h1><i class="fas fa-briefcase"></i>  Infos Professionnelles</h1>
-                                </div>
-                                <div>
-                                    Département : {{ user.entity.name }}
-                                </div>
-                                <div>
-                                    Date d'entrée : <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
+
+                    <hr class="dotted short">
+
+                    <h6 class="text-muted">A propos de vous</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis vulputate quam. Interdum et
+                        malesuada</p>
+                    <hr class="dotted short">
+                    <a class="btn btn-warning"
+                       href="{{ path('change_password', {'id': user.id}) }}"><i
+                                class="fa fa-pencil"></i> Modifier mon mot de passe</a>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-8 col-lg-6">
+            <div class="tabs">
+                <ul class="nav nav-tabs tabs-primary">
+                    <li class="active">
+                        <a href="#infosperso" data-toggle="tab">Information Personnelle</a>
+                    </li>
+                    <li>
+                        <a href="#formations" data-toggle="tab">Formations</a>
+                    </li>
+                    <li>
+                        <a href="#competences" data-toggle="tab">Compétences</a>
+                    </li>
+                    <li>
+                        <a href="#experiences" data-toggle="tab">Expériences</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="infosperso" class="tab-pane active">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="widget-summary">
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            <div class="info">
+                                                <div>
+                                                    Matricule : {{ user.matricule }}
+                                                </div>
+                                                <div>
+                                                    Identifiant : {{ user.username }}
+                                                </div>
+                                                <div>
+                                                    Adresse mail : {{ user.email }}
+                                                </div>
+                                                <div>
+                                                    Téléphone : {{ user.phone1 }}
+                                                </div>
+                                                <div>
+                                                    Date de naissance
+                                                    : {{ user.birthdate ? user.birthdate|date('d-m-Y') : '' }}
+                                                </div>
+                                                <div>
+                                                    Département : {{ user.entity.name }}
+                                                </div>
+                                                {% if user.mainFunction %}
+                                                    <div>
+                                                        Fonction : {{ user.mainFunction.name }}
+                                                    </div>
+                                                {% endif %}
+                                                <div>
+                                                    Date d'entrée :
+                                                    <span>{{ user.createdAt ? user.createdAt|date('d-m-Y') : '' }}</span>
+                                                </div>
+                                                <div class="summary-footer">
+                                                    <div>
+                                                        <a class="btn btn-warning"
+                                                           href="{{ path('user_edit', {'id': user.id}) }}"><i
+                                                                    class="fas fa-edit"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <hr class="dotted short">
+                                            <section class="panel panel-featured-left panel-featured-primary">
+                                                <div class="panel-body">
+                                                    <div class="widget-summary widget-summary-xs">
+                                                        <div class="widget-summary-col widget-summary-col-icon">
+                                                            <div class="summary-icon bg-primary">
+                                                                <i class="fa fa-envelope"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget-summary-col">
+                                                            <div class="summary">
+                                                                <h4 class="title"><strong>INFORMATIONS DE CONTACT</strong></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <div class="summary">
+                                                {% for address in user.addresses %}
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div>
+                                                                Secteur ou BP : {{ address.street }}
+                                                            </div>
+                                                            <div>
+                                                                Quarier : {{ address.cityArea }}
+                                                            </div>
+                                                            <div>
+                                                                Commune : {{ address.municipality.name }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 ">
+                                                            {{ include('address/_delete_form.html.twig') }}
+                                                            <a class="btn btn-warning float-right m-1"
+                                                               href="{{ path('address_edit', {'id': address.id}) }}"><i
+                                                                        class="fas fa-edit"></i> </a>
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                {% endfor %}
+                                            </div>
+                                            {% if user.addresses|length < 2 %}
+                                                <div class="summary-footer">
+                                                    <div class="row m-1">
+                                                        <a class="btn btn-warning float-right"
+                                                           href="{{ path('address_new', {'id': user.id}) }}"><i
+                                                                    class="fas fa-plus-square"></i> Ajouter une nouvelle
+                                                            adresse</a>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
+                    </div>
+                    <div id="formations" class="tab-pane">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="widget-summary">
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                          Vos formations ici
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div id="competences" class="tab-pane">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="widget-summary">
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            Vos compétences ici
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div id="experiences" class="tab-pane">
+                        <section class="panel">
+                            <div class="panel-body">
+                                <div class="widget-summary">
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            Vos expériences ici
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-3">
+
+            <h4 class="mb-md">Projets</h4>
+            <ul class="simple-bullet-list mb-xlg">
+                <li class="red">
+                    <span class="title">Porto Template</span>
+                    <span class="description truncate">Lorem ipsom dolor sit.</span>
+                </li>
+                <li class="green">
+                    <span class="title">Tucson HTML5 Template</span>
+                    <span class="description truncate">Lorem ipsom dolor sit amet</span>
+                </li>
+                <li class="blue">
+                    <span class="title">Porto HTML5 Template</span>
+                    <span class="description truncate">Lorem ipsom dolor sit.</span>
+                </li>
+                <li class="orange">
+                    <span class="title">Tucson Template</span>
+                    <span class="description truncate">Lorem ipsom dolor sit.</span>
+                </li>
+            </ul>
+        </div>
 
     </div>
 {% endblock %}

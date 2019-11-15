@@ -1,0 +1,53 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Détail de l'entité{% endblock %}
+
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Détail de l'entité</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nome</th>
+                        <td>{{ entity.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Abréviation</th>
+                        <td>{{ entity.shortcut }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ entity.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Début</th>
+                        <td>{{ entity.startAt ? entity.startAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ entity.createdAt ? entity.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dernière modification</th>
+                        <td>{{ entity.updatedAt ? entity.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de fermeture</th>
+                        <td>{{ entity.closedAt ? entity.closedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer">
+            <a href="{{ path('entity_index') }}" class="btn btn-info">
+                <i class="fas fa-circle-notch"></i>Retour à la list
+            </a>
+            <a href="{{ path('entity_edit', {'id': entity.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i>Modifier
+            </a>
+        </footer>
+    </section>
+{% endblock %}

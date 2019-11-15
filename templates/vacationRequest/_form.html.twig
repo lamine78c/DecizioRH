@@ -1,0 +1,100 @@
+<div class="row">
+
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Demandes de congés et absences</h3>
+        </header>
+        <div class="panel-body">
+
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+
+            <div class="row">
+                <div class="col-md-6">
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label required">Début</label>
+
+                                {{ form_widget(form.startAt, {'id': 'startDate', 'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label">Période</label>
+                                {{ form_widget(form.startTimeCode, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label required">Fin</label>
+
+                                {{ form_widget(form.endAt, {'id': 'endDate', 'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label">Période</label>
+                                {{ form_widget(form.endTimeCode, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label required">Type d'absence</label>
+                                {{ form_errors(form.vacationType) }}
+                                {{ form_widget(form.vacationType, {'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                        </div>
+                        {% if vacationRequest.id is null %}
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label required">Salarié</label>
+                                    {{ form_errors(form.user) }}
+                                    {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="control-label required">Statut</label>
+                                {{ form_errors(form.requestStatus) }}
+                                {{ form_widget(form.requestStatus, {'attr': {'class': 'form-control'}}) }}
+
+                            </div>
+                        </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <label class="control-label">Commentaire du salarié</label>
+                            {{ form_widget(form.userComment, {'attr': {'class': 'form-control', 'rows': '5', 'cols': '80'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                             <label class="control-label">Commentaire du manager</label>
+                            {{ form_widget(form.managerComment, {'attr': {'class': 'form-control' , 'rows': '5', 'cols': '80'}}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="panel-footer">
+            <button class="btn btn-primary">
+                <i class="fa fa-check-square" aria-hidden="true"></i>
+                Enregistrer
+            </button>
+
+            <a href="{{ path('vacation_request_index') }}" class="btn btn-warning">
+                 <i class="fa fa-circle-o-notch" aria-hidden="true"></i>Annuler
+            </a>
+        </footer>
+        {{ form_end(form) }}
+    </section>
+</div>

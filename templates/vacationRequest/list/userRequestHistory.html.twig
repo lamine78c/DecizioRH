@@ -1,0 +1,47 @@
+<section class="panel">
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-none">
+                <thead>
+                    <tr>
+                        <th>Type d'absence</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Statut</th>
+                        <th>Date de la demande</th>
+                        <th>Dernière de mise à jour</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vacationRequest in vacationRequests %}
+                        <tr>
+                            <td>{{ vacationRequest.vacationType.name }}</td>
+                            <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.requestStatus.name }}</td>
+                            <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                            <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{{ path('vacation_request_show', {'id': vacationRequest.id}) }}"><i class="fa fa-eye"></i></a>
+                                {% if vacationRequest.requestStatus.name != 'Validée' %}
+                                    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                                        <a class="btn btn-warning" href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}"><i class="fa fa-edit"></i></a>
+                                    {% else %}
+                                        <a class="btn btn-warning" href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}"><i class="fa fa-edit"></i></a>
+                                    {% endif %}
+                                    {{ include('vacationRequest/_delete_form.html.twig') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Aucune demande de congés n'est disponible</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

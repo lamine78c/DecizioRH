@@ -1,0 +1,125 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Vacation{% endblock %}
+
+{% block body %}
+
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Détail du congé</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Salarié</th>
+                        <td>{{ vacation.user.firstname }} {{ vacation.user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type d'absence</th>
+                        <td>{{ vacation.vacationType.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Period</th>
+                        <td>{{ vacation.period }}</td>
+                    </tr>
+                    <tr>
+                        <th>Acquis</th>
+                        <td>{{ vacation.win }}</td>
+                    </tr>
+                    <tr>
+                        <th>Utilisé(s)</th>
+                        <td>{{ vacation.spent }}</td>
+                    </tr>
+                    <tr>
+                        <th>Solde</th>
+                        <td>{{  vacation.win  - vacation.spent }}</td>
+                    </tr>
+                    <tr>
+                        <th>Début cumul</th>
+                        <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fin cumul</th>
+                        <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Utilisable jusqu'au</th>
+                        <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ vacation.createdAt ? vacation.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dernière modification</th>
+                        <td>{{ vacation.updatedAt ? vacation.updatedAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer">
+            <a href="{{ path('vacation_index') }}" class="btn btn-info">
+                <i class="fas fa-circle-notch"></i>Retour à la list
+            </a>
+            <a href="{{ path('vacation_edit', {'id': vacation.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i>Modifier
+            </a>
+        </footer>
+    </section>
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="toggle" data-plugin-toggle>
+            <section class="toggle active">
+                    <label>Historique des demandes</label>
+                    <div class="toggle-content">
+
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-none">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Type d'absence</th>
+                                    <th>Début</th>
+                                    <th>Fin</th>
+                                    <th>Statut</th>
+                                    <th>Date de création</th>
+                                    <th>Date de modification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vacationRequest in vacationRequests %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{ vacationRequest.vacationType.name }}</td>
+                                        <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                                        <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                                        <td>{{ vacationRequest.requestStatus.name }}</td>
+                                        <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                                        <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+
+                </div>
+            </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

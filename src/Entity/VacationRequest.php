@@ -24,14 +24,14 @@ class VacationRequest
      *
      * @ORM\Column(name="user_comment", type="text", nullable=true)
      */
-    private $user_comment;
+    private $userComment;
 
     /**
      * @var string
      *
      * @ORM\Column(name="manager_comment", type="text", nullable=true)
      */
-    private $manager_comment;
+    private $managerComment;
 
     /**
      * @var User
@@ -70,6 +70,20 @@ class VacationRequest
      * @ORM\Column(name="end_at", type="datetime")
      */
     private $endAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="start_timecode", type="string", columnDefinition="enum('matin', 'soir')")
+     */
+    private $startTimeCode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="end_timecode", type="string", columnDefinition="enum('matin', 'soir')")
+     */
+    private $endTimeCode;
 
     /**
      * @var \DateTime
@@ -173,24 +187,24 @@ class VacationRequest
 
     public function getUserComment(): ?string
     {
-        return $this->user_comment;
+        return $this->userComment;
     }
 
-    public function setUserComment(?string $user_comment): self
+    public function setUserComment(?string $userComment): self
     {
-        $this->user_comment = $user_comment;
+        $this->userComment = $userComment;
 
         return $this;
     }
 
     public function getManagerComment(): ?string
     {
-        return $this->manager_comment;
+        return $this->managerComment;
     }
 
-    public function setManagerComment(?string $manager_comment): self
+    public function setManagerComment(?string $managerComment): self
     {
-        $this->manager_comment = $manager_comment;
+        $this->managerComment = $managerComment;
 
         return $this;
     }
@@ -203,6 +217,30 @@ class VacationRequest
     public function setRequestStatus(?RequestStatus $requestStatus): self
     {
         $this->requestStatus = $requestStatus;
+
+        return $this;
+    }
+
+    public function getStartTimeCode(): ?string
+    {
+        return $this->startTimeCode;
+    }
+
+    public function setStartTimeCode(string $startTimeCode): self
+    {
+        $this->startTimeCode = $startTimeCode;
+
+        return $this;
+    }
+
+    public function getEndTimeCode(): ?string
+    {
+        return $this->endTimeCode;
+    }
+
+    public function setEndTimeCode(string $endTimeCode): self
+    {
+        $this->endTimeCode = $endTimeCode;
 
         return $this;
     }

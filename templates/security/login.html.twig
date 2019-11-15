@@ -3,50 +3,50 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card login-card">
-                <div class="bg-info p-1 text-white"><h3><i class="fa fa-lock fa-2x" aria-hidden="true"></i> Connexion sécurisée</h3></div>
-                <div class="card-body">
-                    <form method="post">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
-                            <div class="form-group">
-                                <label for="inputUsernameOrEmail" class="sr-only">Email</label>
-                                <input type="text" value="{{ last_username }}" name="usernameOrEmail" id="inputUsernameOrEmail" class="form-control" placeholder="Identifiant ou Email" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword" class="sr-only">Password</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
-                            </div>
-
-                            <input type="hidden" name="_csrf_token"
-                                   value="{{ csrf_token('authenticate') }}"
-                            >
-
-                            {#
-                                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                See https://symfony.com/doc/current/security/remember_me.html
-
-                                <div class="checkbox mb-3">
-                                    <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
-                                    </label>
-                                </div>
-                            #}
-
-                            <button class="btn btn-lg btn-danger float-right" type="submit">
-                                <i class="fa fa-lock" aria-hidden="true"></i> Se connecter
-                            </button>
-                    </form>
-                    <div class="link_to_change">
-                        <a href="{{ path('forgotten_password') }}">Mot de passe oublié</a>
+<section class="body-sign">
+    <div class="center-sign">
+        <div class="panel panel-sign">
+            <div class="panel-title-sign mt-xl text-right">
+                <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Connexion</h2>
+            </div>
+            <div class="panel-body">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="form-group mb-lg">
+                        <label>Email ou identifiant</label>
+                        <div class="input-group input-group-icon">
+                            <input value="{{ last_username }}" name="usernameOrEmail" id="inputUsernameOrEmail" type="text" class="form-control input-lg" required/>
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group mb-lg">
+                        <div class="clearfix">
+                            <label class="pull-left">Mot de passe</label>
+                            <a href="{{ path('forgotten_password') }}" class="pull-right">Mot de passe oublié ?</a>
+                        </div>
+                        <div class="input-group input-group-icon">
+                            <input name="password" id="inputPassword" type="password" class="form-control input-lg" required />
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" class="btn btn-primary hidden-xs">Se connecter</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Se connecter</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

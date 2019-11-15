@@ -1,0 +1,75 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Détail demandes de congés et absences{% endblock %}
+
+{% block body %}
+
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Détail de la demande</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Salarié</th>
+                        <td>{{ vacationRequest.user.firstName }} {{ vacationRequest.user.lastName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Début</th>
+                        <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }},
+                            {{ vacationRequest.startTimeCode }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Fin</th>
+                        <td>
+                            {{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }},
+                            {{ vacationRequest.endTimeCode }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Type d'absence</th>
+                        <td>{{ vacationRequest.vacationType.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>{{ vacationRequest.requestStatus.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Commentaire de salarié</th>
+                        <td>{{ vacationRequest.userComment }}</td>
+                    </tr>
+                    <tr>
+                        <th>Commentaire du manager</th>
+                        <td>{{ vacationRequest.managerComment }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de la demande</th>
+                        <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+        <footer class="panel-footer">
+            <a href="{{ path('vacation_request_index') }}" class="btn btn-info">
+                <i class="fas fa-circle-notch"></i>Retour à la list
+            </a>
+            <a href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i>Modifier
+            </a>
+        </footer>
+        {% else %}
+            <footer class="panel-footer">
+                <a href="{{ path('user_vacation_request_list', {'id': vacationRequest.user.id}) }}" class="btn btn-info">
+                    <i class="fas fa-circle-notch"></i>Retour à la list
+                </a>
+                <a href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i>Modifier
+                </a>
+            </footer>
+        {% endif %}
+    </section>
+
+{% endblock %}

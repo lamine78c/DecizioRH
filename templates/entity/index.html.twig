@@ -1,0 +1,45 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Liste Départements et services{% endblock %}
+
+{% block body %}
+
+    <section class="panel">
+        <header class="panel-heading">
+            <h3 class="panel-title">Départements & Services</h3>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-list">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Abréviation</th>
+                        <th>Entité parent</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.shortcut }}</td>
+                         <td>{{ entity.parent ? entity.parent.name : ''}}</td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            <a href="{{ path('entity_show', {'id': entity.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                            <a href="{{ path('entity_edit', {'id': entity.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <a href="{{ path('entity_new') }}" class="btn btn-primary" role="button">Créer une entité</a>
+
+{% endblock %}

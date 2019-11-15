@@ -73,7 +73,7 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="user", orphanRemoval=true)
      */
     private $addresses;
 
@@ -89,9 +89,9 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var \Datetime
+     * @var \Date
      *
-     * @ORM\Column(name="birthdate", type="datetime", nullable=true)
+     * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
     private $birthDate;
 

@@ -1,0 +1,34 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Modification du congé{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+
+        <section class="panel">
+            <header class="panel-heading">
+                <h3 class="panel-title">Modification du congé</h3>
+            </header>
+            <div class="panel-body">
+
+                {{ include('vacation/_form.html.twig', {'button_label': 'Update'}) }}
+
+            </div>
+
+            <footer class="panel-footer">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    Enregistrer
+                </button>
+
+                <a href="{{ path('vacation_index') }}" class="btn btn-warning">
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>Annuler
+                </a>
+            </footer>
+        {{ form_end(form) }}
+        </section>
+    </div>
+
+{% endblock %}
+

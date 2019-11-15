@@ -1,0 +1,108 @@
+<aside id="sidebar-left" class="sidebar-left">
+
+    <div class="sidebar-header">
+            <div class="sidebar-title">
+                    Navigation
+            </div>
+            <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+            </div>
+    </div>
+
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                    </li>
+                    {% if  app.user.roles[0] == 'ROLE_ADMIN' %}
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>Gestion des salariés</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('user_index') }}">
+                                    List des salariés
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-sitemap" aria-hidden="true"></i>
+                            <span>Services & Départements</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('entity_index') }}">
+                                    List des entités
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span>Congés & Absences</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('vacation_index') }}">
+                                    Acquis & Soldes
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('vacation_request_index') }}">
+                                    Demandes d'absence
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fas fa-wrench" aria-hidden="true"></i>
+                            <span>Administration</span>
+                        </a>
+                    </li>
+                    {% else %}
+                        <li>
+                            <a role="menuitem" tabindex="-1" href="{{ path('user_show', {'id': app.user.id}) }}"><i class="fa fa-user"></i> Mon Profile</a>
+                        </li>
+                        <li class="nav-parent">
+                            <a>
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                <span>Congés & Absences</span>
+                            </a>
+                            <ul class="nav nav-children">
+                                <li>
+                                    <a href="{{ path('user_vacation_list', {'id': app.user.id}) }}">
+                                        Acquis & Soldes
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-children">
+                                <li>
+                                    <a href="{{ path('user_vacation_request_list', {'id': app.user.id}) }}">
+                                        Demandes d'absence
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+</aside>
