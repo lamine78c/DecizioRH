@@ -29,12 +29,12 @@ class VacationRequestType extends AbstractType
             ])
             ->add('startAt',  DateType::class, [
                 'widget' => 'single_text',
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd-MM-yyyy',
                 'html5' => false,
             ])
             ->add('endAt',  DateType::class, [
                 'widget' => 'single_text',
-                'format' => 'dd/mm/yyyy',
+                'format' => 'dd-MM-yyyy',
                 'html5' => false,
             ])
             ->add('user', EntityType::class, array(

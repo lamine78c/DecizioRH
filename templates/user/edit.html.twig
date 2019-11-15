@@ -5,14 +5,3 @@
 {% block body %}
     {{ include('user/_form.html.twig') }}
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $( function() {
-            $("#user_birthdate").datepicker({
-                language : "fr",
-                format: 'dd-MM-yyyy'
-            });
-        });
-    </script>
-{% endblock %}
