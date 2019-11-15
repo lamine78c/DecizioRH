@@ -1,13 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
-{% block title %}Edit Entity{% endblock %}
+{% block title %}Modification département/service{% endblock %}
 
 {% block body %}
-    <h1>Edit Entity</h1>
 
-    {{ include('entity/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row">
 
-    <a href="{{ path('entity_index') }}">back to list</a>
+        <section class="panel">
+            <header class="panel-heading">
+                <h3 class="panel-title">Modification département/service</h3>
+            </header>
+            <div class="panel-body">
 
-    {{ include('entity/_delete_form.html.twig') }}
+                {{ include('entity/_form.html.twig', {'button_label': 'Update'}) }}
+
+            </div>
+
+            <footer class="panel-footer">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    Enregistrer
+                </button>
+                <a href="{{ path('entity_index') }}" class="btn btn-warning">
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>Annuler
+                </a>
+            </footer>
+        {{ form_end(form) }}
+        </section>
+    </div>
+
 {% endblock %}

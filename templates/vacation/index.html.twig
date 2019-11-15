@@ -9,7 +9,7 @@
             <h3 class="panel-title">Acquis & Soldes</h3>
         </header>
         <div class="panel-body">
-            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+            <table class="table table-bordered table-striped mb-none" id="datatable-list">
                 <thead>
                     <tr>
                         <th>Salarié</th>
@@ -38,8 +38,8 @@
                             <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
 
                             <td>
-                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}"><i class="btn btn-info fa fa-eye"></i></a>
-                                <a href="{{ path('vacation_edit', {'id': vacation.id}) }}"><i class="btn btn-warning fa fa-edit"></i></a>
+                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                                <a href="{{ path('vacation_edit', {'id': vacation.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
                             </td>
                         </tr>
                     {% else %}

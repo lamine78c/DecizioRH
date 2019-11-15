@@ -69,6 +69,7 @@ class VacationRequestController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'La demande a bien été mise à jour');
             return $this->redirectToRoute('vacation_request_index');
         }
 
