@@ -38,6 +38,7 @@ class VacationController extends AbstractController
             $entityManager->persist($vacation);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le congé a bien été créé.');
             return $this->redirectToRoute('vacation_index');
         }
 
@@ -72,7 +73,7 @@ class VacationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Votre modification a bien été prise en compte.');
             return $this->redirectToRoute('vacation_index');
         }
 

@@ -1,11 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBack.html.twig' %}
 
-{% block title %}New Vacation{% endblock %}
+{% block title %}Création congés{% endblock %}
 
 {% block body %}
-    <h1>Create new Vacation</h1>
+    <div class="row">
 
-    {{ include('vacation/_form.html.twig') }}
+        <section class="panel">
+            <header class="panel-heading">
+                <h3 class="panel-title">Creation d'un congé</h3>
+            </header>
+            <div class="panel-body">
 
-    <a href="{{ path('vacation_index') }}">back to list</a>
+                {{ include('vacation/_form.html.twig') }}
+
+            </div>
+
+            <footer class="panel-footer">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    Enregistrer
+                </button>
+
+                <a href="{{ path('vacation_index') }}" class="btn btn-warning">
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>Annuler
+                </a>
+            </footer>
+        {{ form_end(form) }}
+        </section>
+    </div>
 {% endblock %}
