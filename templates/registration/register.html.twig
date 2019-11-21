@@ -2,8 +2,11 @@
 
 {% block title %}Ajout d'un nouveau salarié{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Ajout d'un nouveau salarié", 'navParent': 'Gestion des salariés'} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
-    <h3><i class="fas fa-user-edit fa-2x"></i> Ajout d'un nouveau salarié</h3>
     <div class="row">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         <div class="col-md-6">
@@ -80,17 +83,19 @@
                         </div>
                     </div>
                 </div>
-                <footer class="panel-footer">
-                    <button class="btn btn-primary">
-                        <i class="fa fa-check-square" aria-hidden="true"></i>
-                        {{ button_label|default('Enregistrer') }}
-                    </button>
-                    <button type="reset" class="btn btn-warning">
-                        <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
-                        Annuler
-                    </button>
-                </footer>
             </section>
+        </div>
+        <div class="col-md-12">
+            <footer class="panel-footer">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    {{ button_label|default('Enregistrer') }}
+                </button>
+                <a class="btn btn-warning" href="javascript:history.go(-1)">
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+                    Annuler
+                </a>
+            </footer>
         </div>
         {{ form_end(form) }}
     </div>

@@ -2,6 +2,10 @@
 
 {% block title %}Modification de la fiche d'un salarié{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Modification de la fiche d'un salarié", 'navParent': 'Gestion des salariés'} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     {{ include('user/_form.html.twig') }}
 {% endblock %}
