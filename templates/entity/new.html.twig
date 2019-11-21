@@ -2,6 +2,10 @@
 
 {% block title %}Ajout département/service{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Ajout département/service", 'navParent': "Services & Départements"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <div class="row">

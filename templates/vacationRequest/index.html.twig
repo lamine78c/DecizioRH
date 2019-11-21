@@ -2,6 +2,10 @@
 
 {% block title %}congés et absences{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Liste des demandes de congés et absences", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <section class="panel">

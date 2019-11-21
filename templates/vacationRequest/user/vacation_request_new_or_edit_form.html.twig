@@ -2,6 +2,10 @@
 
 {% block title %}Nouvelle demande d'absence{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Demandes de congés et absences", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     <div class="row">
         <section class="panel">
@@ -68,40 +72,12 @@
                     <i class="fa fa-check-square" aria-hidden="true"></i>
                     Enregistrer
                 </button>
-                <a href="{{ path('user_vacation_request_list', {'id': vacationRequest.user.id}) }}" class="btn btn-info">
-                    <i class="fas fa-circle-notch"></i>Annuler
+                <a class="btn btn-warning" href="javascript:history.go(-1)">
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+                    Annuler
                 </a>
             </footer>
             {{ form_end(form) }}
         </section>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-            $('#startDate').datepicker({
-                uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome',
-                minDate: today,
-                format: 'dd/mm/yyyy',
-                language: 'fr',
-                startDate: today,
-                maxDate: function () {
-                    return $('#endDate').val();
-                }
-            });
-            $('#endDate').datepicker({
-                uiLibrary: 'bootstrap4',
-                iconsLibrary: 'fontawesome',
-                minDate: function () {
-                    return $('#startDate').val();
-                },
-                format: 'dd/mm/yyyy',
-                language: 'fr',
-            });
-        });
-    </script>
 {% endblock %}

@@ -2,6 +2,10 @@
 
 {% block title %}Modification du congé{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Modification du congé", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <div class="row">
