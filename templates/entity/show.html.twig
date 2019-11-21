@@ -2,6 +2,10 @@
 
 {% block title %}Détail de l'entité{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Détail d'un département/service", 'navParent': "Services & Départements"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
@@ -43,10 +47,10 @@
         </div>
         <footer class="panel-footer">
             <a href="{{ path('entity_index') }}" class="btn btn-info">
-                <i class="fas fa-circle-notch"></i>Retour à la list
+                <i class="fa fa-circle-notch"></i>Retour à la list
             </a>
             <a href="{{ path('entity_edit', {'id': entity.id}) }}" class="btn btn-warning">
-                <i class="fas fa-edit"></i>Modifier
+                <i class="fa fa-edit"></i>Modifier
             </a>
         </footer>
     </section>
