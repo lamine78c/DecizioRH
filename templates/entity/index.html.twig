@@ -2,6 +2,10 @@
 
 {% block title %}Liste Départements et services{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Liste départements et services", 'navParent': "Services & Départements"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <section class="panel">

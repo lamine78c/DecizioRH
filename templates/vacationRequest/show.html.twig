@@ -2,6 +2,10 @@
 
 {% block title %}Détail demandes de congés et absences{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Détail demande de congé et absence", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <section class="panel">
@@ -54,20 +58,22 @@
         {% if app.user.roles[0] == 'ROLE_ADMIN' %}
         <footer class="panel-footer">
             <a href="{{ path('vacation_request_index') }}" class="btn btn-info">
-                <i class="fas fa-circle-notch"></i>Retour à la list
+                <i class="fa fa-circle-notch"></i>Retour à la list
             </a>
             <a href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
-                <i class="fas fa-edit"></i>Modifier
+                <i class="fa fa-edit"></i>Modifier
             </a>
         </footer>
         {% else %}
             <footer class="panel-footer">
                 <a href="{{ path('user_vacation_request_list', {'id': vacationRequest.user.id}) }}" class="btn btn-info">
-                    <i class="fas fa-circle-notch"></i>Retour à la list
+                    <i class="fa fa-circle-notch"></i>Retour à la list
                 </a>
-                <a href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
-                    <i class="fas fa-edit"></i>Modifier
-                </a>
+                {% if vacationRequest.requestStatus.name != 'Validée' %}
+                    <a href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}" class="btn btn-warning">
+                        <i class="fa fa-edit"></i>Modifier
+                    </a>
+                {% endif %}
             </footer>
         {% endif %}
     </section>

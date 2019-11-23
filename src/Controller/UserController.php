@@ -8,7 +8,6 @@ use App\Form\UserType;
 use App\Form\UserVacationRequestType;
 use App\Repository\RequestStatusRepository;
 use App\Repository\UserRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,15 +21,8 @@ class UserController extends AbstractController
      * @Route("/admin/user/list", name="user_index", methods={"GET"})
      *  @Security("has_role('ROLE_ADMIN')")
      */
-    public function index(UserRepository $userRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(UserRepository $userRepository): Response
     {
-        $query  = $userRepository->queryAllUser();
-        $users = $paginator->paginate(
-            $query,
-            $request->query->get('page', 1),
-            10
-        );
-
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);

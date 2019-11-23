@@ -2,6 +2,10 @@
 
 {% block title %}Congés Salarié{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Congés Salarié", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     <div class="row">
 

@@ -2,6 +2,10 @@
 
 {% block title %}Nouvelle demande d'absence{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Demandes de congés et absences", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     <div class="row">
         <section class="panel">
@@ -67,6 +71,7 @@
                     <i class="fa fa-check-square" aria-hidden="true"></i>
                     Enregistrer
                 </button>
+
                 <a href="{{ path('user_vacation_request_list') }}" class="btn btn-info">
                     <i class="fas fa-circle-notch"></i>Annuler
                 </a>

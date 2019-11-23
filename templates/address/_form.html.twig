@@ -34,10 +34,10 @@
                     <i class="fa fa-check-square" aria-hidden="true"></i>
                     {{ button_label|default('Enregistrer') }}
                 </button>
-                <button type="reset" class="btn btn-warning">
+                <a class="btn btn-warning" href="javascript:history.go(-1)">
                     <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
                     Annuler
-                </button>
+                </a>
             </footer>
         </div>
     {{ form_end(form) }}

@@ -2,6 +2,10 @@
 
 {% block title %}Création congés{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Ajout acquis/soldes", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
     <div class="row">
 

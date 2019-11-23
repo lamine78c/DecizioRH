@@ -2,6 +2,10 @@
 
 {% block title %}Soldes des Congés{% endblock %}
 
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Acquis & Soldes", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
+
 {% block body %}
 
     <h3 class="panel-title">Acquis & Soldes</h3>

@@ -1,6 +1,10 @@
 {% extends 'baseBack.html.twig' %}
 
-{% block title %}Acquis et soldes congés Salarié{% endblock %}
+{% block title %}Acquis et soldes congés salarié{% endblock %}
+
+{% block breadcrumbs %}
+    {% include 'breadcrumbs.html.twig' with {'navCurrent': "Acquis et soldes congés salarié", 'navParent': "Congés & Absences"} %}
+{% endblock breadcrumbs %}
 
 {% block body %}
     <div class="row">
