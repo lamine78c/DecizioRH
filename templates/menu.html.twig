@@ -19,10 +19,30 @@
                             <span>Tableau de bord</span>
                         </a>
                     </li>
+                    <li class="nav-parent">
+                        <a>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span>Mes Congés & Absences</span>
+                        </a>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('user_vacation_list') }}">
+                                    Mes Soldes
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-children">
+                            <li>
+                                <a href="{{ path('user_vacation_request_list') }}">
+                                    Mes Demandes
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     {% if  app.user.roles[0] == 'ROLE_ADMIN' %}
                     <li class="nav-parent">
                         <a>
-                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <i class="fas fa-users-cog" aria-hidden="true"></i>
                             <span>Gestion des salariés</span>
                         </a>
                         <ul class="nav nav-children">
@@ -37,7 +57,7 @@
                     <li class="nav-parent">
                         <a>
                             <i class="fa fa-sitemap" aria-hidden="true"></i>
-                            <span>Services & Départements</span>
+                            <span>Départements & Services</span>
                         </a>
                         <ul class="nav nav-children">
                             <li>
@@ -74,30 +94,6 @@
                             <span>Administration</span>
                         </a>
                     </li>
-                    {% else %}
-                        <li>
-                            <a role="menuitem" tabindex="-1" href="{{ path('user_show', {'id': app.user.id}) }}"><i class="fa fa-user"></i> Mon Profile</a>
-                        </li>
-                        <li class="nav-parent">
-                            <a>
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                <span>Congés & Absences</span>
-                            </a>
-                            <ul class="nav nav-children">
-                                <li>
-                                    <a href="{{ path('user_vacation_list', {'id': app.user.id}) }}">
-                                        Acquis & Soldes
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-children">
-                                <li>
-                                    <a href="{{ path('user_vacation_request_list', {'id': app.user.id}) }}">
-                                        Demandes d'absence
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     {% endif %}
                 </ul>
             </nav>

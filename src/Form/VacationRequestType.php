@@ -51,13 +51,11 @@ class VacationRequestType extends AbstractType
             ))
             ->add('startTimeCode', ChoiceType::class, [
                 'choices' => ['Matin' => 'matin', 'Soir' => 'soir'],
-                'required' => false,
-                'data' => 'matin',
+                'required' => true,
             ])
             ->add('endTimeCode', ChoiceType::class, [
-                'choices' => ['Matin' => 'matin', 'Soir' => 'soir'],
-                'required' => false,
-                'data' => 'soir',
+                'choices' => ['Soir' => 'soir', 'Matin' => 'matin'],
+                'required' => true,
             ])
         ;
     }

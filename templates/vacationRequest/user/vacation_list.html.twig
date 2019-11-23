@@ -4,8 +4,98 @@
 
 {% block body %}
     <div class="row">
+        {#   Solde & acquis en cours de valiodité #}
         <section class="panel">
-            {% include 'vacationRequest/list/userVacations.html.twig' with {'vacations': user.vacations} %}
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                </div>
+
+                <h2 class="panel-title">Vos soldes & acquis en cours de validité</h2>
+            </header>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-condensed mb-none">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Période</th>
+                                <th>Acquis</th>
+                                <th>Utilisé(s)</th>
+                                <th>Solde</th>
+                                <th>Début cumul</th>
+                                <th>Fin cumul</th>
+                                <th>Valable jusqu'au</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vacation in noExpiredVacations %}
+                                 <tr>
+                                    <td>{{ vacation.vacationType.name }}</td>
+                                    <td>{{ vacation.period }}</td>
+                                    <td>{{ vacation.win }}</td>
+                                    <td>{{ vacation.spent }}</td>
+                                    <td>{{  vacation.win  - vacation.spent }}</td>
+                                    <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
+                                    <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
+                                    <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">Aucun acquis ou solde n'est disponible</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        {#   Solde & acquis déjà expirés #}
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                </div>
+
+                <h2 class="panel-title">Historique de vos acquis</h2>
+            </header>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-condensed mb-none">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Période</th>
+                                <th>Acquis</th>
+                                <th>Utilisé(s)</th>
+                                <th>Solde</th>
+                                <th>Début cumul</th>
+                                <th>Fin cumul</th>
+                                <th>Valable jusqu'au</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vacation in expiredVacations %}
+                                 <tr>
+                                    <td>{{ vacation.vacationType.name }}</td>
+                                    <td>{{ vacation.period }}</td>
+                                    <td>{{ vacation.win }}</td>
+                                    <td>{{ vacation.spent }}</td>
+                                    <td>{{  vacation.win  - vacation.spent }}</td>
+                                    <td>{{ vacation.startAt ? vacation.startAt|date('d/m/Y') : '' }}</td>
+                                    <td>{{ vacation.endAt ? vacation.endAt|date('d/m/Y') : '' }}</td>
+                                    <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">Aucun historique n'est disponible</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </div>
 {% endblock %}

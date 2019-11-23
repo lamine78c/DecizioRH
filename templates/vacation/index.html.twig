@@ -39,7 +39,7 @@
                             <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
 
                             <td>
-                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}" data-toggle="tooltip" title="Voir détail"><i class="btn btn-info fa fa-eye"></i></a>
                                 <a href="{{ path('vacation_edit', {'id': vacation.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
                             </td>
                         </tr>

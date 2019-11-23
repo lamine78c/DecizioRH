@@ -27,7 +27,7 @@
                          <td>{{ entity.parent ? entity.parent.name : ''}}</td>
                         <td>{{ entity.description }}</td>
                         <td>
-                            <a href="{{ path('entity_show', {'id': entity.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                            <a href="{{ path('entity_show', {'id': entity.id}) }}" data-toggle="tooltip" title="Voir détail"><i class="btn btn-info fa fa-eye"></i></a>
                             <a href="{{ path('entity_edit', {'id': entity.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
                         </td>
                     </tr>
