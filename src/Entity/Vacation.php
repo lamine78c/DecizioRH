@@ -37,9 +37,9 @@ class Vacation
     private $vacationType;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="period", type="integer", nullable= false)
+     * @ORM\Column(name="period", type="string", length=6, nullable= false)
      */
     private $period;
 
@@ -106,12 +106,12 @@ class Vacation
         return $this->id;
     }
 
-    public function getPeriod(): int
+    public function getPeriod(): ?string
     {
         return $this->period;
     }
 
-    public function setPeriod(int $period): self
+    public function setPeriod(?string $period): self
     {
         $this->period = $period;
 

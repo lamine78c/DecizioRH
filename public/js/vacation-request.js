@@ -2,13 +2,6 @@ $(document).ready(function () {
     _initDatatable();
 });
 
-function _initDatatable(){
-
-    $('#datatable-listk').DataTable({
-          "language": {"url": "../localisation/fr_FR.json"},                
-    });
-}
-
 function initDateRangePicker() {
     var today = new Date();
     $('#startDate').datepicker({

@@ -8,9 +8,10 @@
 
 {% block body %}
 
+    <h3>Demandes de congés et absences</h3>
     <section class="panel">
         <header class="panel-heading">
-            <h3 class="panel-title">Demandes de congés et absences</h3>
+            <a href="{{ path('vacation_request_new') }}" class="btn btn-primary" role="button">Effectuez une nouvelle demande</a>
         </header>
         <div class="panel-body">
             <table class="table table-bordered table-striped mb-none" id="datatable-list">
@@ -21,7 +22,7 @@
                         <th>Fin</th>
                         <th>Type d'absence</th>
                         <th>Statut</th>
-                        <th>actions</th>
+                        <th class="no-sort">actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +34,7 @@
                         <td>{{ vacationRequest.vacationType.name }}</td>
                         <td>{{ vacationRequest.requestStatus.name }}</td>
                         <td class="actions">
-                            <a href="{{ path('vacation_request_show', {'id': vacationRequest.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                            <a href="{{ path('vacation_request_show', {'id': vacationRequest.id}) }}" data-toggle="tooltip" title="Voir détail"><i class="btn btn-info fa fa-eye"></i></a>
                             <a href="{{ path('vacation_request_edit', {'id': vacationRequest.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
                         </td>
                     </tr>
@@ -46,5 +47,4 @@
             </table>
         </div>
     </section>
-    <a href="{{ path('vacation_request_new') }}" class="btn btn-primary" role="button">Effectuez une nouvelle demande</a>
 {% endblock %}
