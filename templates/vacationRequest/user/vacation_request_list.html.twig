@@ -8,21 +8,147 @@
 
 {% block body %}
     <div class="row">
+
+        <a class="btn btn-primary" role="button" href="{{ path('user_vacation_request_new') }}">
+            Nouvelle demande
+        </a>
+
+        {#   Les demandes en cours #}
         <section class="panel">
-        <header class="panel-heading">
-            <div class="card-header">
-                <div>
-                    <a class="btn btn-primary" href="{{ path('user_vacation_request_new', {'id': user.id}) }}">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                         Faire une nouvelle demande de congés
-                    </a>
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                </div>
+
+                <h2 class="panel-title">Les demandes en attente de validation</h2>
+            </header>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-condensed mb-none">
+                        <thead>
+                            <tr>
+                                <th>Type d'absence</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Statut</th>
+                                <th>Date de la demande</th>
+                                <th>Dernière de mise à jour</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for vacationRequest in vacationRequestInProgress %}
+                            {% set deletePath =  path('user_vacation_request_delete', {'id': vacationRequest.id}) %}
+                            <tr>
+                                <td>{{ vacationRequest.vacationType.name }}</td>
+                                <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.requestStatus.name }}</td>
+                                <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="{{ path('user_vacation_request_edit', {'id': vacationRequest.id}) }}" data-toggle="tooltip" title="Modifier"><i class="fa fa-edit"></i></a>
+                                    {{ include('vacationRequest/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">Aucune demande de congés n'est disponible</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="panel-actions">
-                <a href="#" class="fa fa-caret-down"></a>
-            </div>
-        </header>
-        {% include 'vacationRequest/list/userRequestHistory.html.twig' with {'vacationRequests': user.vacationRequests} %}
         </section>
+
+        {#   Les demandes validées #}
+
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                </div>
+
+                <h2 class="panel-title">Les demandes validées</h2>
+            </header>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-condensed mb-none">
+                        <thead>
+                            <tr>
+                                <th>Type d'absence</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Statut</th>
+                                <th>Date de la demande</th>
+                                <th>Date de validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for vacationRequest in vacationRequestsValidated %}
+                            <tr>
+                                <td>{{ vacationRequest.vacationType.name }}</td>
+                                <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.requestStatus.name }}</td>
+                                <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">Aucune demande de congés n'est disponible</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        {#   Les demandes rejetées #}
+
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                </div>
+
+                <h2 class="panel-title">Les demandes rejetées</h2>
+            </header>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-condensed mb-none">
+                        <thead>
+                            <tr>
+                                <th>Type d'absence</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Statut</th>
+                                <th>Date de la demande</th>
+                                <th>Date du rejet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for vacationRequest in vacationRequestsRejected %}
+                            <tr>
+                                <td>{{ vacationRequest.vacationType.name }}</td>
+                                <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.endAt ? vacationRequest.endAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.requestStatus.name }}</td>
+                                <td>{{ vacationRequest.createdAt ? vacationRequest.createdAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ vacationRequest.updatedAt ? vacationRequest.updatedAt|date('d/m/Y') : '' }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">Aucune demande de congés n'est disponible</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
     </div>
 {% endblock %}

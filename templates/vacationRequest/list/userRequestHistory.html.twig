@@ -16,6 +16,7 @@
                 </thead>
                 <tbody>
                     {% for vacationRequest in vacationRequests %}
+                        {% set deletePath =  path('vacation_request_delete', {'id': vacationRequest.id}) %}
                         <tr>
                             <td>{{ vacationRequest.vacationType.name }}</td>
                             <td>{{ vacationRequest.startAt ? vacationRequest.startAt|date('d/m/Y') : '' }}</td>

@@ -8,9 +8,10 @@
 
 {% block body %}
 
+    <h3 class="panel-title">Acquis & Soldes</h3>
     <section class="panel">
         <header class="panel-heading">
-            <h3 class="panel-title">Acquis & Soldes</h3>
+            <a href="{{ path('vacation_new') }}" class="btn btn-primary" role="button">Créer un nouveau congé</a>
         </header>
         <div class="panel-body">
             <table class="table table-bordered table-striped mb-none" id="datatable-list">
@@ -25,7 +26,7 @@
                         <th>Solde</th>
                         <th>Type</th>
                         <th>Utilisable jusqu'au</th>
-                        <th>actions</th>
+                        <th class="no-sort">actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +43,7 @@
                             <td>{{ vacation.expiredAt ? vacation.expiredAt|date('d/m/Y') : '' }}</td>
 
                             <td>
-                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}" data-toggle="tooltip" title="Voir"><i class="btn btn-info fa fa-eye"></i></a>
+                                <a href="{{ path('vacation_show', {'id': vacation.id}) }}" data-toggle="tooltip" title="Voir détail"><i class="btn btn-info fa fa-eye"></i></a>
                                 <a href="{{ path('vacation_edit', {'id': vacation.id}) }}" data-toggle="tooltip" title="Modifier"><i class="btn btn-warning fa fa-edit"></i></a>
                             </td>
                         </tr>

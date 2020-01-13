@@ -14,6 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 class RequestStatus
 {
+
+    const STATUS_IN_PROGRESS = 'En cours';
+    const STATUS_VALID = 'Validée';
+    const STATUS_REJECT = 'Rejetée';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

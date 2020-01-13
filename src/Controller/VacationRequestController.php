@@ -12,6 +12,8 @@ use App\Entity\Vacation;
 use App\Entity\VacationRequest;
 use App\Form\VacationRequestType;
 use App\Form\VacationRequestEditType;
+use App\Entity\RequestStatus;
+use App\Form\UserVacationRequestType;
 
 class VacationRequestController extends AbstractController
 {
@@ -98,5 +100,103 @@ class VacationRequestController extends AbstractController
         }
 
         return $this->redirectToRoute('vacation_request_index');
+    }
+
+    /**
+     * @Route("/user/vacation-request/list", name="user_vacation_request_list", methods={"GET"})
+     */
+    public function vacationRequestList(): Response
+    {
+        $vacationRequestRepository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository(VacationRequest::class);
+
+        $vacationRequests = $vacationRequestRepository->findBy(['user' => $this->getUser()], ['updatedAt' => 'ASC']);
+        $vacationRequestsInProgress = [];
+        $validatedVacationRequests = [];
+        $rejectedVacationRequests = [];
+        foreach ($vacationRequests as $vacationRequest) {
+            if ($vacationRequest->getRequestStatus()->getName() === RequestStatus::STATUS_IN_PROGRESS) {
+                $vacationRequestsInProgress[] = $vacationRequest;
+            } elseif ($vacationRequest->getRequestStatus()->getName() === RequestStatus::STATUS_VALID) {
+                 $validatedVacationRequests[] = $vacationRequest;
+            } elseif ($vacationRequest->getRequestStatus()->getName() === RequestStatus::STATUS_REJECT) {
+                 $rejectedVacationRequests[] = $vacationRequest;
+            }
+        }
+
+        return $this->render('vacationRequest/user/vacation_request_list.html.twig', [
+            'user' => $this->getUser(),
+            'vacationRequestInProgress' => $vacationRequestsInProgress,
+            'vacationRequestsValidated' => $validatedVacationRequests,
+            'vacationRequestsRejected' => $rejectedVacationRequests,
+        ]);
+    }
+
+    /**
+     * @Route("/user/vacation-request/new", name="user_vacation_request_new", methods={"GET","POST"})
+     */
+    public function vacationRequestNew(Request $request): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $vacationRequest = new VacationRequest();
+        $form = $this->createForm(UserVacationRequestType::class, $vacationRequest);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $status = $entityManager->getRepository(RequestStatus::class)->findOneBy(['name' => RequestStatus::STATUS_IN_PROGRESS]);
+
+            $vacationRequest->setUser($this->getUser());
+            $vacationRequest->setRequestStatus($status);
+            $entityManager->persist($vacationRequest);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Votre demande d'absence a bien été prise en compte");
+
+            return $this->redirectToRoute('user_vacation_request_list');
+        }
+
+        return $this->render('vacationRequest/user/vacation_request_new_or_edit_form.html.twig', [
+            'vacationRequest' => $vacationRequest,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/vacation-request/{id}/edit", name="user_vacation_request_edit", methods={"GET","POST"})
+     */
+    public function vacationRequestEdit(Request $request, VacationRequest $vacationRequest): Response
+    {
+        $form = $this->createForm(UserVacationRequestType::class, $vacationRequest);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', "Votre demande d'absence a bien été modifiée");
+
+            return $this->redirectToRoute('user_vacation_request_list');
+        }
+
+        return $this->render('vacationRequest/user/vacation_request_new_or_edit_form.html.twig', [
+            'vacationRequest' => $vacationRequest,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/user/vacation-request/{id}", name="user_vacation_request_delete", methods={"DELETE"})
+     */
+    public function vacationRequestDelete(Request $request, VacationRequest $vacationRequest): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$vacationRequest->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($vacationRequest);
+            $entityManager->flush();
+        }
+
+         $this->addFlash('success', "La demande d'absence a bien été supprimée");
+
+        return $this->redirectToRoute('user_vacation_request_list');
     }
 }
