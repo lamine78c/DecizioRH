@@ -18,5 +18,5 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 .idea
-/.env
+.env
 /nbproject/
