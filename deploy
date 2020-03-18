@@ -1,0 +1,3 @@
+!/bin/sh
+rsync -av ./ 5m8t7_decizio@5m8t7.ftp.infomaniak.com:~/deciziorh --include=public/build --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
+ssh 5m8t7_decizio@5m8t7.ftp.infomaniak.com 'cd ~/deciziorh && php bin/console cache:clear'
