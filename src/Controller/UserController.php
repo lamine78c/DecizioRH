@@ -19,7 +19,9 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/admin/user/list", name="user_index", methods={"GET"})
-     *  @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -29,17 +31,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/profil", name="user_show", methods={"GET"})
+     * @Route("/user/profil/{id}", name="user_show", methods={"GET"})
+     * @param User $user
+     * @return Response
      */
-    public function show(): Response
+    public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $this->getUser(),
+            'user' => $user,
         ]);
     }
 
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function edit(Request $request, User $user): Response
     {
@@ -60,6 +67,9 @@ class UserController extends AbstractController
 
     /**
      * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function delete(Request $request, User $user): Response
     {
