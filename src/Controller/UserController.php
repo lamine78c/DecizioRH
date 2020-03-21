@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/admin/user/list", name="user_index", methods={"GET"})
+     * @Route("/admin/users", name="user_index", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      * @param UserRepository $userRepository
      * @return Response
@@ -31,14 +31,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/profil/{id}", name="user_show", methods={"GET"})
-     * @param User $user
-     * @return Response
+     * @Route("/user/profil", name="user_show", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user,
+            'user' => $this->getUser(),
         ]);
     }
 
